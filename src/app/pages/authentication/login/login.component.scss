@@ -1,0 +1,215 @@
+
+  
+  
+  .container {
+    height: 100%;
+    align-content: center;
+    font-family: FontAwesome !important;
+  }
+  
+  .container .fas {
+    font-family: 'Font Awesome 5 Free' !important;
+  }
+  
+  
+  .card {
+    height: 370px;
+    margin-top: 10%;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    font-family: FontAwesome !important;
+  }
+  
+  .social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: #E81C00;
+    font-family: FontAwesome !important;
+  }
+  
+  .social_icon span:hover {
+    color: white;
+    cursor: pointer;
+  }
+  
+  .card-header h3 {
+    color: white;
+  }
+  
+  .social_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+  }
+  
+  .input-group-prepend span {
+    width: 50px;
+    background-color: #E81C00;
+    color: black;
+    border: 0 !important;
+  }
+  
+  input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+  
+  }
+  
+  .remember {
+    //color: white;
+    margin-bottom: 20px;
+  }
+  .switch-container {
+    background-color: white;
+    padding: 23px !important;
+    border-radius: 10px;
+    height: 92px;
+    //box-shadow: 0px 0px 20px 5px #E81C00 !important;
+    //box-shadow: 0px 0px 5px 2px #6949FF !important;
+    /* Adjust the values as needed */
+  }
+  
+  .remember input {
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+  .btn-active {
+    //width: 397px;
+    //height: 41px;
+    background: #E81C00;
+    border-radius: 8px;
+    //margin-bottom: 30px;
+    //margin-top: 20px
+    color: #FFFFFF !important;
+  
+  }
+  
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set full height for container */
+  .container-fluid {
+    height: 100%;
+    //padding: 50px;
+    width: 100%;
+  }
+  .custom-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Center the login container vertically and horizontally */
+  .body {
+    height: 100vh;
+  }
+  
+  /* Left Half: Logo Slider */
+  .bg-light.d-flex.justify-content-center.align-items-center {
+    padding: 30px;
+  }
+  .no-padding {
+    padding: 0px;
+  }
+  
+  /* Right Half: Login/Register Tabs */
+  .bg-white {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* Add border radius for rounded corners */
+  }
+  .left-side {
+    height: 65vh;
+      border-radius: 10px;
+      background: var(--darkblue01);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+  .right-side {
+    margin-top: 0.75rem;
+    
+  }
+  .left-side.increased-height {
+    height: 80vh;
+    /* or any desired height */
+  }
+  .links a {
+    color: #007bff;
+    margin-left: 4px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add shadow */
+  }
+  
+  /* Center the tabs */
+  .bg-white .nav-tabs {
+    justify-content: center;
+  }
+  
+  .nav-link {
+    color: #1D1C1F;
+    font-weight: bolder;
+    font-size: 20px !important;
+  }
+  
+  /* Active tab style */
+  .nav-link.active {
+    background-color: #E3DEFC;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #6949FF, 0px 5px 0px 0px #6949FF;
+    margin-bottom: 5px; /* Adjust according to your requirement */
+    //width: 248.5px;
+    color: black !important;
+  }
+  .slider-holder {
+    display: flex;
+      justify-content: center;
+      align-items: center;
+      //margin-top: 10rem;
+      min-width: 200px;
+  }
+  .slider {
+      border: 2px dashed #E81C00;
+      border-radius: 50%;
+      padding: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  /* Form style */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Button style */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
