@@ -1,0 +1,169 @@
+.navbar {
+  height: 100px;
+  background: #6a2be9;
+  border-bottom: none;
+  box-shadow: none;
+  .play-now {
+    width: 199px;
+    height: 56px;
+    padding: 10px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0px 6px 0px 0px #221659;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: #6949ff;
+  }
+}
+
+.hero {
+  height: 800px;
+  background: #6a2be9;
+  .maintext {
+    font-family: Inter;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 67.2px;
+    text-align: left;
+    color: #ffffff;
+    margin-top: 160px;
+  }
+  .subtext {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+    color: #fff;
+    span {
+      font-weight: 800;
+    }
+  }
+  .play-now {
+    width: 284px;
+    height: 56px;
+    padding: 10px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0px 6px 0px 0px #221659;
+    margin-top: 50px;
+    color: #6949ff;
+  }
+  .curve {
+    position: absolute;
+    right: -85px;
+    bottom: 0;
+  }
+  .phone {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .money {
+    right: -108px;
+    top: -1px;
+    position: absolute;
+  }
+}
+
+.benefit {
+  margin-top: 100px;
+  padding-right: 200px;
+  padding-left: 200px;
+
+  .title {
+    font-family: Inter;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 43.2px;
+    text-align: left;
+    color: #312f33;
+  }
+  .texts {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #312f33;
+  }
+  .play-now {
+    width: 180px;
+    height: 48px;
+    padding: 10px;
+    border-radius: 16px;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    background: #6949ff;
+    box-shadow: 0px 4px 0px 0px #221659;
+  }
+}
+
+.cta-sec {
+  height: 664px;
+  background: #fcfaff;
+  margin-top: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  .maintext1 {
+    font-family: Inter;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 50.4px;
+    text-align: center;
+  }
+  .maintext2 {
+    color: #0c68b9;
+    margin-top: -10px;
+  }
+  .play-now {
+    width: 180px;
+    height: 48px;
+    padding: 10px;
+    border-radius: 16px;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    background: #6949ff;
+    box-shadow: 0px 4px 0px 0px #221659;
+  }
+
+  .im1 {
+    position: absolute;
+    top: 39%;
+  }
+  .im2 {
+    left: 211px;
+    position: absolute;
+    bottom: 95px;
+  }
+  .im3 {
+    left: 338px;
+    position: absolute;
+    top: 43%;
+  }
+  .im4 {
+    position: absolute;
+    left: 236px;
+    top: 77px;
+  }
+  .im5 {
+    right: 11%;
+    position: absolute;
+    top: 31%;
+  }
+}
