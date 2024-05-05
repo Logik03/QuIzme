@@ -8,10 +8,12 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { reducers, metaReducers} from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
