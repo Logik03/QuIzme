@@ -5,6 +5,12 @@
     height: 100%;
     align-content: center;
     font-family: FontAwesome !important;
+    width: 560px !important;
+  }
+
+  .required {
+    color: red;
+    margin-left: 4px;
   }
   
   .container .fas {
@@ -36,6 +42,8 @@
   .card-header h3 {
     color: white;
   }
+
+  
   
   .social_icon {
     position: absolute;

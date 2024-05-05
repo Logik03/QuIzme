@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="login-container bg-white shadow p-5">
+        <div class="login-container p-5">
             <div>
               <ul class="nav nav-pills nav-fill gap-5 p-1 small switch-container  shadow-sm" id="pillNav2"
                 role="tablist"
@@ -25,100 +25,93 @@
                     </div>
                 </div>
                 <div [ngSwitch]="currentTab" class="mt-4">
+                  <!-- Register Form -->
+                  <div *ngSwitchCase="'register'" class="tab-pane fade show">
+                    <div>
+                      <h2>Sign Up</h2>
+                    </div>
+                    <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+                        <div class="form-group" style="margin-top: 20px;">
+                          <label>Full name <span class="required">*</span></label>
+                          <div class="input-group">
+                            <input type="text"  class="form-control quiz-input" formControlName="fullname" [ngClass]="{ 'invalid-input': signUpForm.get('fullname')!.invalid && signUpForm.get('fullname')!.touched }">
+                          </div>
+                        </div>
+                      
+                        <div class="form-group">
+                          <label>Email Address <span class="required">*</span></label>
+                          <div class="input-group">
+                            <input type="text"  class="form-control quiz-input" formControlName="email" [ngClass]="{ 'invalid-input': signUpForm.get('email')!.invalid && signUpForm.get('email')!.touched }">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username<span class="required">*</span></label>
+                            <div class="input-group">
+                              <input type="text"  class="form-control quiz-input" formControlName="username" [ngClass]="{ 'invalid-input': signUpForm.get('username')!.invalid && signUpForm.get('username')!.touched }">
+                            </div>
+                          </div>
+                      
+                        <div class="form-group">
+                          <label>Password<span class="required">*</span></label>
+                          <div class="input-group">
+                            <input type="password"  class="form-control quiz-input" formControlName="password" [ngClass]="{ 'invalid-input': signUpForm.get('password')!.invalid && signUpForm.get('password')!.touched }">
+                          </div>
+                        </div>
+                      
+                        <div class="form-group">
+                          <label>Confirm Password<span class="required">*</span></label>
+                          <div class="input-group">
+                            <input type="password" class="form-control quiz-input" formControlName="confirm_password" [ngClass]="{ 'invalid-input': signUpForm.get('confirm_password')!.invalid && signUpForm.get('confirm_password')!.touched }">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <input type="checkbox" id="termsCheckbox" formControlName="terms">
+                            <label for="termsCheckbox" style="margin-left: 10px;">
+                                I accept Quizme’s <a href="#" style="color: #6949FF; text-decoration: none;">Terms of Service</a> 
+                                and <a href="#" style="color: #6949FF; text-decoration: none;">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                          <!-- <input type="submit" value="Sign Up" [disabled]="signUpForm.invalid" class="btn btn-active btn-lg"> -->
+                          <button [disabled]="!signUpForm.valid" class="quiz-button">Sign Up</button>
+                        </div>
+                    </form>
+                    <div class="card-footer">
+                      <div class="d-flex justify-content-center links">
+                        Already have an account?<a (click)="switchToTab('login')" style="color: #6949FF; text-decoration: none;"><b>Log in</b></a>
+                      </div>
+                    </div>
+                  </div>
                     <!-- Login Form -->
                     <div *ngSwitchCase="'login'" class="tab-pane fade show active">
                       <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
                         
-                        <div class="form-group">
-                            <label>Email Address</label>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Email Address<span class="required">*</span></label>
                             <div class="input-group">
-                              <!-- <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                              </div> -->
-                              <input type="text" style="font-size: 13px;" class="form-control" formControlName="email" placeholder="Email Address">
+                              <input type="text" class="form-control quiz-input" formControlName="email" [ngClass]="{ 'invalid-input': signInForm.get('email')!.invalid && signInForm.get('email')!.touched }">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Email Address</label>
+                            <label>Password<span class="required">*</span><span class="forgot-password">Forgot Password</span></label>
                             <div class="input-group">
-                              <!-- <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                              </div> -->
-                              <input type="text" style="font-size: 13px;" class="form-control" formControlName="email" placeholder="password">
+                              <input type="password" class="form-control quiz-input" formControlName="password" [ngClass]="{ 'invalid-input': signInForm.get('password')!.invalid && signInForm.get('password')!.touched }">
                             </div>
                           </div>
                         <div class="row align-items-center remember">
                           <input type="checkbox">Remember Me
                         </div>
                         <div class="form-group">
-                          <button type="submit" [disabled]="signInForm.invalid" value="Login" class="btn btn-active btn-lg">Login</button>
+                          <button type="submit" [disabled]="signInForm.invalid" value="Login" class="quiz-button">Log In</button>
                         </div>
                       </form>
-                    </div>
-                    <!-- Register Form -->
-                    <div *ngSwitchCase="'register'" class="tab-pane fade show">
-                        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-                            <div class="form-group">
-                              <label>Full Name</label>
-                              <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div> -->
-                                <input type="text" style="font-size: 13px;" class="form-control" formControlName="fullname" placeholder="Full Name">
-                              </div>
-                            </div>
-                          
-                            <div class="form-group">
-                              <label>Email Address</label>
-                              <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div> -->
-                                <input type="text" style="font-size: 13px;" class="form-control" formControlName="email" placeholder="Email Address">
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Desired Username</label>
-                                <div class="input-group">
-                                  <!-- <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                  </div> -->
-                                  <input type="text" style="font-size: 13px;" class="form-control" formControlName="email" placeholder="Email Address">
-                                </div>
-                              </div>
-                          
-                            <div class="form-group">
-                              <label>Password</label>
-                              <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                </div> -->
-                                <input type="password" style="font-size: 13px;" class="form-control" formControlName="password" placeholder="Password">
-                              </div>
-                            </div>
-                          
-                            <div class="form-group">
-                              <label>Confirm Password</label>
-                              <div class="input-group">
-                                <!-- <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                </div> -->
-                                <input type="password" style="font-size: 13px;" class="form-control" formControlName="confirm_password" placeholder="Confirm Password">
-                              </div>
-                            </div>
-                          
-                            <div class="form-group">
-                              <input type="submit" value="Sign Up" [disabled]="signUpForm.invalid" class="btn btn-active btn-lg">
-                            </div>
-                        </form>
                       <div class="card-footer">
                         <div class="d-flex justify-content-center links">
-                          have an account?<a (click)="switchToTab('login')">Login</a>
+                          Dont have an account yet?<a (click)="switchToTab('register')" style="color: #6949FF; text-decoration: none;"><b>Sign up</b></a>
                         </div>
                       </div>
-                    </div>
-                    
+                    </div>  
                   </div>
             </div>
         </div>

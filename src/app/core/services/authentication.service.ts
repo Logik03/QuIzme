@@ -10,7 +10,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class AuthenticationService {
 
-  private baseUrl = "http://127.0.0.1:5000/api/v1";
+  private baseUrl = "https://lottery-n73z.onrender.com/api/v1";
   constructor(
     private http: HttpClient, 
     private router: Router,
@@ -24,7 +24,7 @@ export class AuthenticationService {
 
 
   private get getToken(): string | null {
-    return localStorage["token"]?.replaceAll('"', "");
+    return localStorage.getItem('token');
   }
 
   private get getRefreshToken(): string | null {
@@ -44,7 +44,7 @@ export class AuthenticationService {
   
   public login(payload: any): Observable<any> {
     return this.http
-      .post(`${this.baseUrl}/auth/login`, payload)
+      .post(`${this.baseUrl}/auth/signin`, payload)
       .pipe(
         tap((res: any) => {
            this.storage.setToken(res.data.access_token);
