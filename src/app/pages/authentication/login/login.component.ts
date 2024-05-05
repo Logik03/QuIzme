@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 //import { MustMatch } from '../../../core/helpers/form-control-helper';
 //import { NotificationService } from '../../../core/services/notification.service';
 import { ActivatedRoute } from '@angular/router';
+import { MustMatch } from '../../../core/helpers/form-control-helper';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +38,15 @@ export class LoginComponent implements OnInit {
     })
     this.signUpForm = this.fb.group(
       {
-        email: ['', [Validators.required]],
+        fullname: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        terms: [false, [Validators.requiredTrue]], 
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
         confirm_password: ['', [Validators.required]],
       },
       {
-        //validators: MustMatch('password', 'confirm_password'),
+        validators: MustMatch('password', 'confirm_password'),
     })
   }
 
