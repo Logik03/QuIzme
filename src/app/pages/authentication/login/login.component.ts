@@ -2,9 +2,12 @@ import { Component, Inject, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-//import { MustMatch } from '../../../core/helpers/form-control-helper';
 //import { NotificationService } from '../../../core/services/notification.service';
 import { ActivatedRoute } from '@angular/router';
+import { MustMatch } from '../../../core/helpers/form-control-helper';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +40,15 @@ export class LoginComponent implements OnInit {
     })
     this.signUpForm = this.fb.group(
       {
-        email: ['', [Validators.required]],
+        fullname: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        terms: [false, [Validators.requiredTrue]], 
         username: ['', [Validators.required]],
         password: ['', [Validators.required]],
         confirm_password: ['', [Validators.required]],
       },
       {
-        //validators: MustMatch('password', 'confirm_password'),
+        validators: MustMatch('password', 'confirm_password'),
     })
   }
 
