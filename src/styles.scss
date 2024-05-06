@@ -47,3 +47,8 @@
   background-color: #c0b6ed; /* Change background color to grey */
   cursor: not-allowed; /* Change cursor to not-allowed */
 }
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
