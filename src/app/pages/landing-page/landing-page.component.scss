@@ -3,6 +3,7 @@
   background: #6a2be9;
   border-bottom: none;
   box-shadow: none;
+  // transition: background-color 0.2s ease;
   .play-now {
     width: 199px;
     height: 56px;
@@ -16,6 +17,12 @@
     line-height: 18px;
     text-align: center;
     color: #6949ff;
+    transition: background-color 0.4s ease;
+  }
+  margin-top: -20px;
+  .bg-purple {
+    background: #6949ff;
+    color: #fff;
   }
 }
 
@@ -162,8 +169,93 @@
     top: 77px;
   }
   .im5 {
-    right: 11%;
+    right: 15%;
     position: absolute;
     top: 31%;
+  }
+  .im6 {
+    right: 6%;
+    position: absolute;
+    top: 51%;
+  }
+  .im7 {
+    right: 14%;
+    position: absolute;
+    top: 70%;
+  }
+  .im8 {
+    right: 6%;
+    position: absolute;
+    top: 12%;
+  }
+}
+
+.footer {
+  height: 100px;
+  align-items: center;
+  display: flex;
+  .link {
+    margin-top: 20px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #312f33;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .maintext {
+    font-size: 40px !important;
+    line-height: normal !important;
+  }
+  .hero {
+    height: fit-content !important;
+    padding-bottom: 100px;
+  }
+  .benefit {
+    padding: 15px;
+    img {
+      display: none;
+    }
+  }
+
+  .im1 {
+    display: none;
+  }
+  .im2 {
+    left: 20px !important;
+    position: absolute !important;
+    bottom: 23px !important;
+  }
+  .im3 {
+    display: none;
+
+  }
+  .im4 {
+    position: absolute;
+    left: 29px !important;
+    top: 77px;
+  }
+  .im5 {
+    display: none;
+    
+  }
+  .im6 {
+    display: none;
+
+  }
+  .im7 {
+    right: 4% !important;
+    position: absolute !important;
+    top: 79% !important;
+  }
+  .im8 {
+    right: 6%;
+    position: absolute;
+    top: 12%;
   }
 }

@@ -1,8 +1,13 @@
-<nav class="navbar justify-content-between">
+<nav
+  class="navbar justify-content-between sticky-top"
+  [class.bg-white]="isSticky"
+>
   <div class="container">
     <a class="navbar-brand"></a>
     <form class="form-inline">
-      <button class="play-now my-2 my-sm-0">Play Now!</button>
+      <button class="play-now my-2 my-sm-0" [class.bg-purple]="isSticky">
+        Play Now!
+      </button>
     </form>
   </div>
 </nav>
@@ -17,7 +22,7 @@
       </p>
       <button class="play-now my-2 mt-4">Play Now!</button>
     </div>
-    <div class="col-lg-6 position-relative">
+    <div class="col-lg-6 position-relative d-none d-lg-block">
       <img src="../../../assets/imgs/curve.svg" class="curve" alt="" />
       <img src="../../../assets/imgs/phone.svg" class="phone" alt="" />
       <img src="../../../assets/imgs/money.svg" class="money" alt="" />
@@ -65,6 +70,22 @@
     <img src="../../../assets/imgs/im3.svg" class="img-fluid im3" alt="" />
     <img src="../../../assets/imgs/im4.svg" class="img-fluid im4" alt="" />
     <img src="../../../assets/imgs/im5.svg" class="img-fluid im5" alt="" />
+    <img src="../../../assets/imgs/im6.svg" class="img-fluid im6" alt="" />
+    <img src="../../../assets/imgs/im7.svg" class="img-fluid im7" alt="" />
+    <img src="../../../assets/imgs/im8.svg" class="img-fluid im8" alt="" />
+  </div>
+</div>
 
+<div class="bg-white footer">
+  <div class="container d-flex justify-content-between">
+    <div></div>
+    <div class="d-flex gap-4">
+      <div>
+        <a class="link">Terms of service</a>
+      </div>
+      <div>
+        <a class="link">Privacy Policy</a>
+      </div>
+    </div>
   </div>
 </div>
