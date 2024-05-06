@@ -62,11 +62,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    console.log('i got here!!!')
-    if (this.signInForm.invalid) {
+    
+    /* if (this.signInForm.invalid) {
       return;
-    }
+    } */
     const { email, password } = this.signInForm.value;
+    console.log('i got here!!!')
+    console.log(email, password, 'i am credentials');
     this.store.dispatch(login({ payload: { email, password } }));
   }
 

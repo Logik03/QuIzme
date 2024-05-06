@@ -1,4 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,6 +9,14 @@ import { Component, HostListener } from '@angular/core';
 })
 export class LandingPageComponent {
   isSticky = false;
+
+  constructor(private router:Router) {
+
+  }
+
+  goToLogin() {
+    this.router.navigateByUrl('/auth/login');
+  }
 
   @HostListener('window:scroll', [])
   checkScroll() {

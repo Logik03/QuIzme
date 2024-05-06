@@ -5,7 +5,7 @@
   <div class="container">
     <a class="navbar-brand"></a>
     <form class="form-inline">
-      <button class="play-now my-2 my-sm-0" [class.bg-purple]="isSticky">
+      <button (click)="goToLogin()" class="play-now my-2 my-sm-0" [class.bg-purple]="isSticky">
         Play Now!
       </button>
     </form>
