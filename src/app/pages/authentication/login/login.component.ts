@@ -2,12 +2,13 @@ import { Component, Inject, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-//import { NotificationService } from '../../../core/services/notification.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustMatch } from '../../../core/helpers/form-control-helper';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../store/selectors/auth.selectors';
+import { login } from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,9 @@ export class LoginComponent implements OnInit {
     private router : Router,
     private fb : FormBuilder,
     private auth : AuthenticationService,
-    //private notify : NotificationService,
-    private route: ActivatedRoute
+    private notify : NotificationService,
+    private route: ActivatedRoute,
+    private store: Store
   ) {
     this.route.queryParams.subscribe(params => {
     if (params['tab'] === 'register') {
@@ -60,12 +62,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    this.auth.login(this.signInForm.value).subscribe((res: any)=> {
-      console.log(res.data, 'i am response from loging in!!')
-      if(res.data.status) {
-        this.router.navigateByUrl('/app/dashboard/convert', { replaceUrl: true });
-      }
-    })
+    console.log('i got here!!!')
+    if (this.signInForm.invalid) {
+      return;
+    }
+    const { email, password } = this.signInForm.value;
+    this.store.dispatch(login({ payload: { email, password } }));
   }
 
   backToHome() {
@@ -92,4 +94,8 @@ export class LoginComponent implements OnInit {
   }
 
 }
+
+/* if(res.data.status) {
+  this.router.navigateByUrl('/app/dashboard/convert', { replaceUrl: true });
+} */
 
