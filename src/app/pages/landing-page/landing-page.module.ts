@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LandingPageRoutingModule } from './landing-page-routing.module';
@@ -7,4 +7,4 @@ import { LandingPageRoutingModule } from './landing-page-routing.module';
   declarations: [],
   imports: [CommonModule, LandingPageRoutingModule],
 })
-export class LandingPageModule {}
+export class LandingPageModule {} */
