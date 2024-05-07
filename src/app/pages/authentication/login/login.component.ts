@@ -9,6 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../store/selectors/auth.selectors';
 import { login } from '../../../store/actions/auth.actions';
+import { AppState } from '../../../store/app.states';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     private auth : AuthenticationService,
     private notify : NotificationService,
     private route: ActivatedRoute,
-    private store: Store
+    private store: Store<AppState>
   ) {
     this.route.queryParams.subscribe(params => {
     if (params['tab'] === 'register') {
@@ -63,12 +64,10 @@ export class LoginComponent implements OnInit {
 
   onSignIn() {
     
-    /* if (this.signInForm.invalid) {
+    if (this.signInForm.invalid) {
       return;
-    } */
-    const { email, password } = this.signInForm.value;
-    console.log('i got here!!!')
-    console.log(email, password, 'i am credentials');
+    } 
+     const { email, password } = this.signInForm.value;
     this.store.dispatch(login({ payload: { email, password } }));
   }
 
