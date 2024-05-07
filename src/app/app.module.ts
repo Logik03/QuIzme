@@ -14,10 +14,12 @@ import { NotifierModule} from 'angular-notifier';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './core/interceptors/request-interceptor.interceptor';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
