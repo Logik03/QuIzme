@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'welcome' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -15,11 +17,8 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: '',
-    loadChildren: () =>
-      import('./pages/landing-page/landing-page.module').then(
-        (m) => m.LandingPageModule
-      ),
+    path: 'welcome',
+    component: LandingPageComponent,
   },
 ];
 
