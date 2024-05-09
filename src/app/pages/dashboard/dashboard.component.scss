@@ -50,6 +50,21 @@
   padding: 10px 260px;
 }
 
+@media screen and (max-width: 1350px) {
+  .dash-container {
+    padding: 10px 180px;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .dash-container {
+    padding: 10px 120px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .dash-container {
+    padding: 10px 50px;
+  }
+}
 .ov-bg {
   height: 226px;
   padding: 36px;
@@ -155,6 +170,13 @@
     position: absolute;
     left: 42%;
     top: -23px;
+
+    @media screen and (min-width: 991px) {
+      left: 46%;
+    }
+    @media screen and (min-width: 988px) {
+      left: 47%;
+    }
   }
   .name {
     font-family: Inter;
@@ -216,4 +238,104 @@
 .table {
   box-shadow: 0px 4px 6px -2px #8a86860d !important;
   box-shadow: 0px 12px 16px -4px #8a86861a !important;
+}
+
+.t-head {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #706d73;
+}
+
+.thead {
+  height: 42px;
+  border-radius: 12px 12px 0px 0px;
+}
+
+.even-r {
+  height: 42px;
+  border-radius: 12px, 12px, 0px, 0px;
+}
+
+.table-wh {
+  box-shadow: 0px 4px 6px -2px #8a86860d;
+  box-shadow: 0px 12px 16px -4px #8a86861a;
+  height: fit-content;
+  margin-bottom: 70px;
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.odd {
+  height: 56px;
+  background: #f6f4fc;
+  align-items: center;
+  margin-top: -8px;
+}
+
+.number {
+  width: 10%;
+}
+.player {
+  width: 40%;
+  text-align: left;
+}
+.time {
+  width: 25%;
+  text-align: left;
+}
+.points {
+  width: 25%;
+  text-align: right;
+}
+
+.number-cir {
+  width: 28px;
+  height: 28px;
+  padding: 4px 9px 4px 10px;
+  border-radius: 100px;
+  background: #f4f0f7;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  color: #312f33;
+}
+
+.player {
+  .name {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #1d1c1f;
+  }
+}
+
+.time-va {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #312f33;
+}
+
+.point-bg {
+  width: 38px;
+  height: 20px;
+  padding: 10px 4px 10px 4px;
+  background: #e3defc;
+  border-radius: 5px;
+
+  p {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #6949ff;
+    margin-top: -10px;
+  }
 }
