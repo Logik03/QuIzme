@@ -1,11 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthPageActions from '../actions/auth.actions';
-import { IUser } from '../../core/models/user';
+import { IUser, IUserResponse } from '../../core/models/user';
 
 export interface State {
   isLoading: boolean;
   isAuthenticated: boolean;
-  user: IUser | null;
+  user: IUserResponse | null;
   errorMessage: string | null;
 }
 // Define initial state for authentication
@@ -19,6 +19,7 @@ export const initialState: State = {
 export const authReducer = createReducer(
     initialState,
     on(AuthPageActions.login, (state) => {
+      console.log('Login action dispatched, updating state...');
         return {...state, isLoading: true};
     }),
     on(AuthPageActions.loginSuccess, (state, { user }) => ({
@@ -26,10 +27,12 @@ export const authReducer = createReducer(
       isLoading:false,
       isAuthenticated: true,
       user,
+      token : user.data,
       errorMessage: null,
     })),
     on(AuthPageActions.loginFailure, (state, { errorMessage }) => ({
       ...state,
+      isLoading:false,
       errorMessage,
     })),
     on(AuthPageActions.logout, () => initialState)

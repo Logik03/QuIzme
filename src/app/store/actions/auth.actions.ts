@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { ISigninModel, IUser } from '../../core/models/user';
+import { ISigninModel, IUser, IUserResponse } from '../../core/models/user';
 
 
 export const login = createAction('[Auth/API] Login',props<{ payload : ISigninModel}>());
 
 // Action for login success
-export const loginSuccess = createAction('[Auth/API] Login Success',props<{ user: IUser }>());
+export const loginSuccess = createAction('[Auth/API] Login Success',props<{ user: IUserResponse }>());
   
 // Action for login failure
 export const loginFailure = createAction('[Auth/API] Login Failure',props<{ errorMessage: string }>());
