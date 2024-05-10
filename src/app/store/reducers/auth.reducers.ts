@@ -1,12 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthPageActions from '../actions/auth.actions';
-import { IUser } from '../../core/models/user';
+import { IUser, IUserResponse } from '../../core/models/user';
 
 export interface State {
   isLoading: boolean;
   isAuthenticated: boolean;
-  user: IUser | null;
+  user: IUserResponse | null;
   errorMessage: string | null;
+  hasSelectedInterests: boolean;
+  selectedInterests: string[];
 }
 // Define initial state for authentication
 export const initialState: State = {
@@ -14,11 +16,14 @@ export const initialState: State = {
     isAuthenticated: false,
     user: null,
     errorMessage: null,
+    hasSelectedInterests: false,
+    selectedInterests: [],
 };
 // Reducer function for handling login actions
 export const authReducer = createReducer(
     initialState,
     on(AuthPageActions.login, (state) => {
+      console.log('Login action dispatched, updating state...');
         return {...state, isLoading: true};
     }),
     on(AuthPageActions.loginSuccess, (state, { user }) => ({
@@ -26,11 +31,28 @@ export const authReducer = createReducer(
       isLoading:false,
       isAuthenticated: true,
       user,
+      token : user.data,
       errorMessage: null,
     })),
     on(AuthPageActions.loginFailure, (state, { errorMessage }) => ({
       ...state,
+      isLoading:false,
       errorMessage,
+    })),
+    on(AuthPageActions.selectInterests, (state, { payload }) => ({
+      ...state,
+      selectedInterests: payload.interests,
+    })),
+    on(AuthPageActions.selectInterestsSuccess, (state, { interests }) => ({
+      ...state,
+      selectedInterests: interests,
+      hasSelectedInterests: true,
+      // You might want to perform additional tasks here if needed
+    })),
+    on(AuthPageActions.selectInterestsFailure, (state, { errorMessage }) => ({
+      ...state,
+      errorMessage,
+      hasSelectedInterests: false,
     })),
     on(AuthPageActions.logout, () => initialState)
   );

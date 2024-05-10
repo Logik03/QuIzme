@@ -1,19 +1,26 @@
 import { createAction, props } from '@ngrx/store';
-import { ISigninModel, IUser } from '../../core/models/user';
+import { ISigninModel, ISignupModel, IUser, IUserResponse } from '../../core/models/user';
 
 
 export const login = createAction('[Auth/API] Login',props<{ payload : ISigninModel}>());
+export const signup = createAction('[Auth/API] Sign Up',props<{ payload : ISignupModel }>());
 
 // Action for login success
-export const loginSuccess = createAction('[Auth/API] Login Success',props<{ user: IUser }>());
+export const loginSuccess = createAction('[Auth/API] Login Success',props<{ user: IUserResponse }>());
+export const signupSuccess = createAction('[Auth/API] SignUp Success',props<{ user: IUserResponse }>());
   
 // Action for login failure
 export const loginFailure = createAction('[Auth/API] Login Failure',props<{ errorMessage: string }>());
 
+// Action for selecting Interests, success and failures
+export const selectInterests = createAction('[Auth/API] Select Interests',props<{ payload: { interests: string[] } }>());
+export const selectInterestsSuccess = createAction('[Auth/API] Select Interests Success',props<{ interests: any }>());
+export const selectInterestsFailure = createAction('[Auth/API] Select Interests Failure',props<{ errorMessage: string }>());
+
 // Action for logout
 export const logout = createAction('[Auth/API] Logout');
 export const refreshToken = createAction('[Auth/API] Refresh Token Successful', props<{ token: any}>());
-export const refreshTokenSuccess = createAction('[Auth/API] Refresh Token Successful', props<{ toke: any}>());
+export const refreshTokenSuccess = createAction('[Auth/API] Refresh Token Successful', props<{ token: any}>());
 export const initForgottenPassword = createAction('[Auth/API] Init Forgotten Password', props<{ email: string }>());
 
 export const initForgottenPasswordSuccess = createAction('[Auth/API] Init Forgotten Password Successful', props<{ res: any }>());

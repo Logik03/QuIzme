@@ -14,6 +14,7 @@ import { RequestInterceptor } from './core/interceptors/request-interceptor.inte
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
+import { authReducer} from './store/reducers/auth.reducers';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,12 +39,12 @@ import { AuthEffects } from './store/effects/auth.effects';
       },
     }),
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    //StoreModule.forRoot(reducers, { metaReducers }),
+    //StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ auth : authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 
-      logOnly: !isDevMode() 
+      logOnly: isDevMode() 
     }),
   ],
   providers: [

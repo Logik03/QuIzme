@@ -20,6 +20,18 @@ export class AuthEffects {
     )
   );
 
+  selectInterests$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AuthPageActions.selectInterests),
+      exhaustMap(action => 
+        this.authService.selectInterests(action.payload).pipe(
+          map(interests => AuthPageActions.selectInterestsSuccess({interests})),
+          catchError(error => of(AuthPageActions.selectInterestsFailure({errorMessage:error.messagei})))
+        )
+      )
+    )
+  );
+
   // You might want to add additional effects for handling logout in a similar manner.
 
   constructor(
