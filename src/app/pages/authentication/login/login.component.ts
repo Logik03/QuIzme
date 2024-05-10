@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
       return;
     } 
      const { email, password } = this.signInForm.value;
+     console.log(email, password, '')
     this.store.dispatch(login({ payload: { email, password } }));
   }
 

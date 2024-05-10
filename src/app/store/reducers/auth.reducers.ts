@@ -7,6 +7,8 @@ export interface State {
   isAuthenticated: boolean;
   user: IUserResponse | null;
   errorMessage: string | null;
+  hasSelectedInterests: boolean;
+  selectedInterests: string[];
 }
 // Define initial state for authentication
 export const initialState: State = {
@@ -14,6 +16,8 @@ export const initialState: State = {
     isAuthenticated: false,
     user: null,
     errorMessage: null,
+    hasSelectedInterests: false,
+    selectedInterests: [],
 };
 // Reducer function for handling login actions
 export const authReducer = createReducer(
@@ -34,6 +38,21 @@ export const authReducer = createReducer(
       ...state,
       isLoading:false,
       errorMessage,
+    })),
+    on(AuthPageActions.selectInterests, (state, { payload }) => ({
+      ...state,
+      selectedInterests: payload.interests,
+    })),
+    on(AuthPageActions.selectInterestsSuccess, (state, { interests }) => ({
+      ...state,
+      selectedInterests: interests,
+      hasSelectedInterests: true,
+      // You might want to perform additional tasks here if needed
+    })),
+    on(AuthPageActions.selectInterestsFailure, (state, { errorMessage }) => ({
+      ...state,
+      errorMessage,
+      hasSelectedInterests: false,
     })),
     on(AuthPageActions.logout, () => initialState)
   );

@@ -59,6 +59,10 @@ export class AuthenticationService {
     return this.http.post(`${this.baseUrl}/auth/register`, payload);
   }
 
+  public selectInterests (payload: any) {
+    return this.http.post(`${this.baseUrl}/auth/register`, payload);
+  }
+
   public emailConfirmation(token:string) {
     return this.http.get(`${this.baseUrl}/auth/confirm/${token}`);
   }

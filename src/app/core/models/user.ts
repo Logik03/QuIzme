@@ -18,3 +18,10 @@ export interface ISigninModel  {
     password : string;
     rememberMe? : boolean;
 }
+
+export interface ISignupModel {
+    email : string;
+    fullname : string;
+    password: string;
+    username: string;
+}
