@@ -1,11 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthPageActions from '../actions/auth.actions';
-import { IUser, IUserResponse } from '../../core/models/user';
+import { IUser, IUserData, IUserResponse } from '../../core/models/user';
 
 export interface State {
   isLoading: boolean;
   isAuthenticated: boolean;
-  user: IUserResponse | null;
+  user: IUserData | null;
   errorMessage: string | null;
   hasSelectedInterests: boolean;
   selectedInterests: string[];
@@ -30,8 +30,8 @@ export const authReducer = createReducer(
       ...state,
       isLoading:false,
       isAuthenticated: true,
-      user,
-      token : user.data,
+      user:user.data.user_data,
+      token : user.data.token,
       errorMessage: null,
     })),
     on(AuthPageActions.loginFailure, (state, { errorMessage }) => ({
