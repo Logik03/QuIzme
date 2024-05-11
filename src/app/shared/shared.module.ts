@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoaderComponent } from "./components/loader/loader.component";
+import { LoaderComponent } from './components/loader/loader.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboard-navbar.component';
+import { RouterModule } from '@angular/router';
 //import { ConversionModalComponent } from './components/modals/conversion-modal/conversion-modal.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-
-
 @NgModule({
-  declarations: [
-    LoaderComponent,
-  ],
+  declarations: [LoaderComponent, DashboardNavbarComponent],
   imports: [
     CommonModule,
     TranslateModule.forChild({
@@ -24,10 +22,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    
+    RouterModule,
   ],
-  exports: [
-    LoaderComponent
-  ],
+  exports: [LoaderComponent, DashboardNavbarComponent],
 })
-export class SharedModule { }
+export class SharedModule {}
