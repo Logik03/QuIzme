@@ -14,11 +14,14 @@ import { RequestInterceptor } from './core/interceptors/request-interceptor.inte
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
+import { authReducer} from './store/reducers/auth.reducers';
+import { SelectInterestsComponent } from './pages/select-interests/select-interests.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SelectInterestsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +41,12 @@ import { AuthEffects } from './store/effects/auth.effects';
       },
     }),
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    //StoreModule.forRoot(reducers, { metaReducers }),
+    //StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ auth : authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 
-      logOnly: !isDevMode() 
+      logOnly: isDevMode() 
     }),
   ],
   providers: [

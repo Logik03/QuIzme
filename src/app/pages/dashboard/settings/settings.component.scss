@@ -50,11 +50,11 @@
 }
 @media screen and (max-width: 995px) {
   .custom-container {
-    padding: 0;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
   }
 }
-
-
 
 .setting {
   padding: 0 150px;
@@ -226,4 +226,5 @@ form {
     height: 58px !important;
     background-size: cover !important;
   }
+
 }

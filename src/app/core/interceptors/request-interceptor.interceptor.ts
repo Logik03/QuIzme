@@ -50,7 +50,7 @@ export class RequestInterceptor implements HttpInterceptor {
   private excludedEndpoints(req: HttpRequest<any>): boolean {
     const excludedEnpoints: string | string[] = [
       //'create-admin',
-      //'login'
+      'signin'
     ];
     const endpointParts = req.url.split('/');
     const endpoint = endpointParts[endpointParts.length - 1];

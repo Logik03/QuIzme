@@ -4,6 +4,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
+import { InterestComponentComponent } from './components/interest-component/interest-component.component';
 import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboard-navbar.component';
 import { RouterModule } from '@angular/router';
 //import { ConversionModalComponent } from './components/modals/conversion-modal/conversion-modal.component';
@@ -12,7 +13,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [LoaderComponent, DashboardNavbarComponent],
+  declarations: [
+    LoaderComponent,
+    InterestComponentComponent,
+    DashboardNavbarComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule.forChild({
@@ -24,6 +29,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     RouterModule,
   ],
-  exports: [LoaderComponent, DashboardNavbarComponent],
+  exports: [
+    LoaderComponent,
+    InterestComponentComponent,
+    DashboardNavbarComponent,
+  ],
 })
 export class SharedModule {}
