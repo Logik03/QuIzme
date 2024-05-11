@@ -5,7 +5,9 @@ import { IUser, IUserData, IUserResponse } from '../../core/models/user';
 export interface State {
   isLoading: boolean;
   isAuthenticated: boolean;
+  isRegistered: boolean;
   user: IUserData | null;
+  email:string | null;
   errorMessage: string | null;
   hasSelectedInterests: boolean;
   selectedInterests: string[];
@@ -14,7 +16,9 @@ export interface State {
 export const initialState: State = {
     isLoading: false,
     isAuthenticated: false,
+    isRegistered: false,
     user: null,
+    email: null,
     errorMessage: null,
     hasSelectedInterests: false,
     selectedInterests: [],
@@ -26,6 +30,10 @@ export const authReducer = createReducer(
       console.log('Login action dispatched, updating state...');
         return {...state, isLoading: true};
     }),
+    on(AuthPageActions.signup, (state, { payload }) => {
+      console.log('signup action dispatched, updating state...');
+        return {...state, isLoading: true, email:payload.email};
+    }),
     on(AuthPageActions.loginSuccess, (state, { user }) => ({
       ...state,
       isLoading:false,
@@ -34,7 +42,19 @@ export const authReducer = createReducer(
       token : user.data.token,
       errorMessage: null,
     })),
+    on(AuthPageActions.signupSuccess, (state, { user }) => ({
+      ...state,
+      isLoading:false,
+      isRegistered:true,
+      token : user.data.jwt,
+      errorMessage: null,
+    })),
     on(AuthPageActions.loginFailure, (state, { errorMessage }) => ({
+      ...state,
+      isLoading:false,
+      errorMessage,
+    })),
+    on(AuthPageActions.signupFailure, (state, { errorMessage }) => ({
       ...state,
       isLoading:false,
       errorMessage,

@@ -9,6 +9,14 @@ export const selectIsAuthenticated = createSelector(
   selectAuthState,
   (state: State) => state.isAuthenticated
 );
+export const selectEmail = createSelector(
+  selectAuthState,
+  (state: State) => state.email
+);
+export const selectIsRegistered = createSelector(
+  selectAuthState,
+  (state: State) => state.isRegistered
+);
 
 //Get the user selected interests 
 export const selectHasSelectedInterests = createSelector(

@@ -22,6 +22,20 @@ export class AuthEffects {
     )
   );
 
+  signUp$ = createEffect(() =>
+    this.actions$.pipe(
+      // Filters by Action Creator 'login'
+      ofType(AuthPageActions.signup),
+      exhaustMap(action =>
+        this.authService.signUp(action.payload).pipe(
+          map(user => AuthPageActions.signupSuccess({ user })),
+          tap(() => this.router.navigate(['/auth/email-verification'], { replaceUrl: true })),
+          catchError(error => of(AuthPageActions.signupFailure({ errorMessage: error.message })))
+        )
+      )
+    )
+  );
+
   selectInterests$ = createEffect(() => 
     this.actions$.pipe(
       ofType(AuthPageActions.selectInterests),

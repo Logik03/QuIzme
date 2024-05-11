@@ -10,6 +10,7 @@ export interface IUserResponse {
     data: {
         token: string;
         user_data: IUserData; // Assuming UserData is another interface for user data
+        jwt?: string;
     };
     success: string;
     message: string;
