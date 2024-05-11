@@ -22,7 +22,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent,
   },
   { 
-    path: 'email-verification/:token', 
+    path: 'email-verification', 
     component: EmailVerificationComponent 
   }
   

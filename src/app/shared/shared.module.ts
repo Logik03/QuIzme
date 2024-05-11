@@ -29,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    InterestComponentComponent,
   ],
 })
 export class SharedModule { }

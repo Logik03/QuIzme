@@ -7,10 +7,22 @@ export interface IUser {
 }
 
 export interface IUserResponse {
-    data : string;
+    data: {
+        token: string;
+        user_data: IUserData; // Assuming UserData is another interface for user data
+        jwt?: string;
+    };
     success: string;
     message: string;
     status: string;
+}
+
+export interface IUserData {
+    email : string;
+    username : string;
+    fullname : string;
+    interests: string [];
+    id : string;
 }
 
 export interface ISigninModel  {

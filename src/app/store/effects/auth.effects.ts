@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -14,7 +15,22 @@ export class AuthEffects {
       exhaustMap(action =>
         this.authService.login(action.payload).pipe(
           map(user => AuthPageActions.loginSuccess({ user })),
+          tap(() => this.router.navigate(['/dashboard'], { replaceUrl: true })),
           catchError(error => of(AuthPageActions.loginFailure({ errorMessage: error.message })))
+        )
+      )
+    )
+  );
+
+  signUp$ = createEffect(() =>
+    this.actions$.pipe(
+      // Filters by Action Creator 'login'
+      ofType(AuthPageActions.signup),
+      exhaustMap(action =>
+        this.authService.signUp(action.payload).pipe(
+          map(user => AuthPageActions.signupSuccess({ user })),
+          tap(() => this.router.navigate(['/auth/email-verification'], { replaceUrl: true })),
+          catchError(error => of(AuthPageActions.signupFailure({ errorMessage: error.message })))
         )
       )
     )
@@ -36,6 +52,7 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router : Router
   ) {}
 }

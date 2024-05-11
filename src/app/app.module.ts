@@ -15,11 +15,13 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
 import { authReducer} from './store/reducers/auth.reducers';
+import { SelectInterestsComponent } from './pages/select-interests/select-interests.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SelectInterestsComponent
   ],
   imports: [
     BrowserModule,

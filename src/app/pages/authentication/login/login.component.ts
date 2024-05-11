@@ -8,7 +8,7 @@ import { MustMatch } from '../../../core/helpers/form-control-helper';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../store/selectors/auth.selectors';
-import { login } from '../../../store/actions/auth.actions';
+import { login, signup } from '../../../store/actions/auth.actions';
 import { AppState } from '../../../store/app.states';
 
 @Component({
@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
       return;
     } 
      const { email, password } = this.signInForm.value;
-     console.log(email, password, '')
     this.store.dispatch(login({ payload: { email, password } }));
   }
 
@@ -83,16 +82,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp() {
-    this.auth.signUp(this.signUpForm.value).subscribe((res:any) => {
-      console.log(res, 'i am signup response')
-      if(res.data.status == true) {
-        this.signUpForm.reset();
-        this.switchToTab('login');
-        //this.notify.success(res.data.Msg);
-      }else {
-        //this.notify.error('something went wrong');
-      }
-    })
+
+    if (this.signUpForm.invalid) {
+      return;
+    } 
+     const { email, password, username, fullname } = this.signUpForm.value;
+     this.store.dispatch(signup({ payload: { email, password, fullname, username } }));
   }
 
 }
