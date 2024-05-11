@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { InterestComponentComponent } from './components/interest-component/interest-component.component';
 import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboard-navbar.component';
 import { RouterModule } from '@angular/router';
-//import { ConversionModalComponent } from './components/modals/conversion-modal/conversion-modal.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
