@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../../store/app.states';
 import { selectHasSelectedInterests } from '../../store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { inject } from '@angular/core';
 
 export const AuthGuard: CanActivateFn = (
@@ -15,8 +15,11 @@ export const AuthGuard: CanActivateFn = (
 
   return store.pipe(
     select(selectHasSelectedInterests),
+    tap(hasSelectedInterests => {
+      console.log('Has Selected Interests:', hasSelectedInterests);
+    }),
     map(hasSelectedInterests => {
-      if (hasSelectedInterests) {
+      if (Array.isArray(hasSelectedInterests) && hasSelectedInterests.length > 0)  {
         return true; // Allow navigation if hasSelectedInterests is true
       } else {
         return router.createUrlTree(['/auth/has-selected-interests']); // Navigate to hasSelectedInterests component if hasSelectedInterests is false
