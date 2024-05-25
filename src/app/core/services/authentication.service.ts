@@ -45,13 +45,7 @@ export class AuthenticationService {
   
   public login(payload: ISigninModel): Observable<any> {
     return this.http
-      .post(`${this.baseUrl}/auth/signin`, payload)
-      .pipe(
-        tap((res: any) => {
-           this.storage.setToken(res.data.access_token);
-          this.storage.setItem('User' , res.data.user);
-        })
-      );
+      .post(`${this.baseUrl}/auth/signin`, payload);
   }
 
   public signUp(payload: ISignupModel): Observable<any>  {

@@ -9,7 +9,6 @@ export interface State {
   user: IUserData | null;
   email:string | null;
   errorMessage: string | null;
-  hasSelectedInterests: boolean;
   selectedInterests: string[];
 }
 // Define initial state for authentication
@@ -20,7 +19,6 @@ export const initialState: State = {
     user: null,
     email: null,
     errorMessage: null,
-    hasSelectedInterests: false,
     selectedInterests: [],
 };
 // Reducer function for handling login actions
@@ -41,6 +39,7 @@ export const authReducer = createReducer(
       user:user.data.user_data,
       token : user.data.token,
       errorMessage: null,
+      selectedInterests: user.data.user_data.interests,
     })),
     on(AuthPageActions.signupSuccess, (state, { user }) => ({
       ...state,
@@ -66,7 +65,6 @@ export const authReducer = createReducer(
     on(AuthPageActions.selectInterestsSuccess, (state, { interests }) => ({
       ...state,
       selectedInterests: interests,
-      hasSelectedInterests: true,
       // You might want to perform additional tasks here if needed
     })),
     on(AuthPageActions.selectInterestsFailure, (state, { errorMessage }) => ({
