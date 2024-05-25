@@ -36,10 +36,12 @@ export const authReducer = createReducer(
       ...state,
       isLoading:false,
       isAuthenticated: true,
+      isRegistered: true,
       user:user.data.user_data,
       token : user.data.token,
       errorMessage: null,
       selectedInterests: user.data.user_data.interests,
+      email: user.data.user_data.email
     })),
     on(AuthPageActions.signupSuccess, (state, { user }) => ({
       ...state,

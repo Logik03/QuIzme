@@ -16,7 +16,6 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
 import { authReducer} from './store/reducers/auth.reducers';
-import { SelectInterestsComponent } from './pages/select-interests/select-interests.component';
 import { AppState } from './store/app.states';
 
 
@@ -40,7 +39,6 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     AppComponent,
     DashboardComponent,
     LandingPageComponent,
-    SelectInterestsComponent
   ],
   imports: [
     BrowserModule,

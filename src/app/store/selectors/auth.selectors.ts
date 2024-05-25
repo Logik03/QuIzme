@@ -22,7 +22,7 @@ export const selectIsRegistered = createSelector(
 //Get the user selected interests 
 export const selectHasSelectedInterests = createSelector(
   selectAuthState,
-  (state: AuthState) => state.selectedInterests
+  (state: AuthState) => state.selectedInterests || []
 );
 
 // Get the user state

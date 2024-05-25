@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ export class AuthEffects {
       exhaustMap(action =>
         this.authService.login(action.payload).pipe(
           map(user => AuthPageActions.loginSuccess({ user })),
-          tap(() => this.router.navigate(['/dashboard'], { replaceUrl: true })),
+          tap(() =>  this.router.navigate(['/dashboard'], { replaceUrl: true })),
           catchError(error => of(AuthPageActions.loginFailure({ errorMessage: error.message })))
         )
       )
@@ -48,6 +48,17 @@ export class AuthEffects {
     )
   );
 
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthPageActions.logout),
+        tap(() => {
+          localStorage.clear();
+          this.router.navigate(['/welcome'], { replaceUrl: true });
+        })
+      ),
+    { dispatch: false }
+  );
   // You might want to add additional effects for handling logout in a similar manner.
 
   constructor(
