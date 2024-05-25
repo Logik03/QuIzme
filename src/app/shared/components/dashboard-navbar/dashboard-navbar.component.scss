@@ -11,6 +11,19 @@
     margin-top: 2px;
   }
 
+  .logo-container {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* You can use cover or other values depending on how you want the image to fit */
+  }
   .tab {
     justify-content: center;
   }
