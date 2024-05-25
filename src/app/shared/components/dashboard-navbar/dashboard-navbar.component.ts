@@ -5,6 +5,7 @@ import { AppState } from '../../../store/app.states';
 import { selectUser } from '../../../store/selectors/auth.selectors';
 import { IUserData } from '../../../core/models/user';
 import { Observable } from 'rxjs';
+import { logout } from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-dashboard-navbar',
@@ -22,5 +23,9 @@ export class DashboardNavbarComponent implements OnInit {
 
   checkIfInRoute(routePath: string): boolean {
     return this.router.url === routePath;
+  }
+
+  logOut() {
+    this.store.dispatch(logout());
   }
 }

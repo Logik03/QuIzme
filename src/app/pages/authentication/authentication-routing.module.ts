@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
-import { SelectInterestsComponent } from '../select-interests/select-interests.component';
 //import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
@@ -26,10 +25,6 @@ const routes: Routes = [
     path: 'email-verification', 
     component: EmailVerificationComponent 
   },
-  { 
-    path: 'has-selected-interests', 
-    component: SelectInterestsComponent 
-  }
   
 ];
 
