@@ -54,7 +54,11 @@
     display: inline-block;
     width: 35% !important;
   }
-  
-  .continue-button:hover {
-    background-color: #3700b3;
+  .continue-button:disabled {
+    background-color: #c0b6ed; /* Change background color to grey */
+    cursor: not-allowed; /* Change cursor to not-allowed */
   }
+  
+  /* .continue-button:hover {
+    background-color: #3700b3;
+  } */

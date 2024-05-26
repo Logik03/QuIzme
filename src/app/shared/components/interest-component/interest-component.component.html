@@ -12,6 +12,6 @@
       <span>{{ interest.name }}</span>
     </div>
   </div>
-  <button (click)="continue()" class="continue-button">Continue</button>
+  <button (click)="continue()" class="continue-button" [disabled]="!interestSelected">Continue</button>
   
 </div>
