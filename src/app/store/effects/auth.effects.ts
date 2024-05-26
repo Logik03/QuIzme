@@ -42,6 +42,9 @@ export class AuthEffects {
       exhaustMap(action => 
         this.authService.selectInterests(action.payload).pipe(
           map(interests => AuthPageActions.selectInterestsSuccess({interests})),
+          tap(() => {
+            this.router.navigate(['/dashboard']);
+          }),
           catchError(error => of(AuthPageActions.selectInterestsFailure({errorMessage:error.messagei})))
         )
       )
