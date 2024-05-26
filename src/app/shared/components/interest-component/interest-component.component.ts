@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 import { NotificationService } from '../../../core/services/notification.service';
+import { Store, select } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { selectInterests } from '../../../store/actions/auth.actions';
+import { selectHasSelectedInterests } from '../../../store/selectors/auth.selectors';
+import { filter, take } from 'rxjs';
 export interface Interest {
   name: string;
   selected: boolean;
@@ -11,7 +16,7 @@ export interface Interest {
 })
 export class InterestComponentComponent {
 
-  constructor(private notification: NotificationService,) {}
+  constructor(private notification: NotificationService, private store : Store, private router : Router) {}
 
   @Input() interests: Interest[] = [];
   @Output() selectionChange = new EventEmitter<Interest[]>();
@@ -29,5 +34,7 @@ export class InterestComponentComponent {
   continue() {
     const selectedInterests = this.interests.filter(interest => interest.selected);
     this.selectionChange.emit(selectedInterests);
+    const interestNames = selectedInterests.map(interest => interest.name);
+    this.store.dispatch(selectInterests({ payload: { interest: interestNames} }));
   }
 }

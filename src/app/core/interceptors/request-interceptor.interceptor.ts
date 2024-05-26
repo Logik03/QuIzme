@@ -11,17 +11,26 @@ import { Router } from '@angular/router';
 import { LoadingService } from '../services/loading.service';
 import { NotificationService } from '../services/notification.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../../store/app.states';
+import { selectAuthToken } from '../../store/selectors/auth.selectors';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
+  private token: string | null = null; 
 
   constructor(
     private router: Router,
     private loadingService: LoadingService,
     private notification: NotificationService,
-    private auth: AuthenticationService
-  ) { }
+    private auth: AuthenticationService,
+    private store: Store<AppState> 
+  ) { 
+    this.store.pipe(
+      select(selectAuthToken)
+    ).subscribe((t:any) => this.token = t);
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.loadingService.showLoading();
@@ -34,10 +43,12 @@ export class RequestInterceptor implements HttpInterceptor {
       );
     }
 
-    const token = localStorage['token']?.replaceAll('"', '') ||  ""
+    if (!this.token) {
+      this.token = localStorage.getItem('token'); // Fallback to localStorage
+    }
     const modifiedRequest = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${this.token}`,
       },
     });
 
@@ -63,7 +74,7 @@ export class RequestInterceptor implements HttpInterceptor {
     req: HttpRequest<any>
   ) {
     const statusCode = err.status;
-    const errorMessage = err?.error?.data?.Msg;
+    const errorMessage = err?.error?.message;
 
     //console.log('Error Message: ', errorMessage);
     

@@ -14,6 +14,10 @@ export const selectEmail = createSelector(
   selectAuthState,
   (state: AuthState) => state.email
 );
+export const selectAuthToken= createSelector(
+  selectAuthState,
+  (state: AuthState) => state.token
+);
 export const selectIsRegistered = createSelector(
   selectAuthState,
   (state: AuthState) => state.isRegistered

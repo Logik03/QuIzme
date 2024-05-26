@@ -6,6 +6,7 @@ export interface State {
   isLoading: boolean;
   isAuthenticated: boolean;
   isRegistered: boolean;
+  token: string | null;
   user: IUserData | null;
   email:string | null;
   errorMessage: string | null;
@@ -18,6 +19,7 @@ export const initialState: State = {
     isRegistered: false,
     user: null,
     email: null,
+    token: null,
     errorMessage: null,
     selectedInterests: [],
 };
@@ -62,11 +64,11 @@ export const authReducer = createReducer(
     })),
     on(AuthPageActions.selectInterests, (state, { payload }) => ({
       ...state,
-      selectedInterests: payload.interests,
+      selectedInterests: payload.interest,
     })),
     on(AuthPageActions.selectInterestsSuccess, (state, { interests }) => ({
       ...state,
-      selectedInterests: interests,
+      selectedInterests: interests.data.interests,
       // You might want to perform additional tasks here if needed
     })),
     on(AuthPageActions.selectInterestsFailure, (state, { errorMessage }) => ({
