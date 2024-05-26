@@ -19,6 +19,9 @@ import { AppState } from '../../../store/app.states';
 export class LoginComponent implements OnInit {
 
 
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
+  hideLoginPassword: boolean = true;
   signInForm: FormGroup;
   signUpForm: FormGroup;
   public currentTab : string = 'register';
@@ -89,10 +92,16 @@ export class LoginComponent implements OnInit {
      const { email, password, username, fullname } = this.signUpForm.value;
      this.store.dispatch(signup({ payload: { email, password, fullname, username } }));
   }
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+  toggleConfirmPassword() {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
+  toggleLoginPassword() {
+    this.hideLoginPassword = !this.hideLoginPassword
+  }
 
 }
 
-/* if(res.data.status) {
-  this.router.navigateByUrl('/app/dashboard/convert', { replaceUrl: true });
-} */
 
