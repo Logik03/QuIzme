@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { InterestComponentComponent } from './components/interest-component/interest-component.component';
 import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboard-navbar.component';
 import { RouterModule } from '@angular/router';
+import { AdsComponent } from './components/ads/ads.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -16,6 +18,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent,
     InterestComponentComponent,
     DashboardNavbarComponent,
+    AdsComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent,
     InterestComponentComponent,
     DashboardNavbarComponent,
+    AdsComponent,
+    NgbModule,
   ],
 })
 export class SharedModule {}

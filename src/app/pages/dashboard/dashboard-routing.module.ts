@@ -1,3 +1,4 @@
+import { GameBoardComponent } from './../game-board/game-board.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
+      },
+      {
+        path: 'game',
+        component: GameBoardComponent,
       },
     ],
   },

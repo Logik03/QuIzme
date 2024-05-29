@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-overview',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './overview.component.scss',
 })
 export class OverviewComponent {
+  wantsToPlay: boolean = false;
   winners = [
     {
       number: 4,
@@ -104,4 +106,15 @@ export class OverviewComponent {
       point: '866',
     },
   ];
+
+  constructor(private route: Router) {}
+
+  play() {
+    this.wantsToPlay = true;
+  }
+
+  onAdDismissed(event: any) {
+    this.wantsToPlay = false;
+    this.route.navigate(['/dashboard/game']);
+  }
 }
