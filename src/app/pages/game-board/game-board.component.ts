@@ -13,8 +13,9 @@ export class GameBoardComponent implements OnInit {
   currentQuestionIndex: number = 0;
   score: number = 0;
   interval: any;
-
+  isLoading: boolean = false;
   answers: Awnser[] = [];
+  hasSubmitedGame: boolean = false;
 
   constructor(private gameService: GameService) {}
 
@@ -24,10 +25,15 @@ export class GameBoardComponent implements OnInit {
   }
 
   getQuestions() {
+    this.isLoading = true;
     this.gameService.getQuestions().subscribe({
       next: (response) => {
         this.game = response.data;
+        this.isLoading = false;
         this.resetTimer();
+      },
+      error: () => {
+        this.isLoading = false;
       },
     });
   }
@@ -64,12 +70,14 @@ export class GameBoardComponent implements OnInit {
         awnser: option,
         questionId: currentQuestion.id,
       });
-    this.nextQuestion();
+    setTimeout(() => {
+      this.nextQuestion();
+    }, 1500);
   }
 
   endGame() {
     clearInterval(this.interval);
-    alert(`Game over! Your score is: ${this.score}`);
+    this.submitAnswers();
   }
 
   getColClass(length: number, index: number): string {
@@ -91,17 +99,16 @@ export class GameBoardComponent implements OnInit {
   submitAnswers() {
     if (this.game)
       this.gameService
-        .submitAnswer(this.game.player.id, {
-          awnsers: [
-            {
-              awnser: '',
-              questionId: '',
-            },
-          ],
+        .submitAnswer(this.game.playerId, {
+          awnsers: this.answers,
           end_time: new Date().toUTCString(),
         })
         .subscribe({
-          next: () => {},
+          next: () => {
+            this.answers = [];
+            this.game = null;
+            this.hasSubmitedGame = true;
+          },
         });
   }
 

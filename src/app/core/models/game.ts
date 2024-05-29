@@ -6,9 +6,10 @@ export interface IResponse {
 }
 
 export interface IStartGameResponse {
-  player: Player;
+  player?: Player;
   questions: Question[];
   adverts: Advert[];
+  playerId: string;
 }
 
 export interface Player {
@@ -28,6 +29,9 @@ export interface Question {
   options: string[];
   __v: number;
   id: string;
+  awnser?: string;
+  isconstant?: boolean;
+  for_day?: string;
 }
 
 export interface Advert {
