@@ -37,3 +37,13 @@ export interface Advert {
   __v: number;
   id: string;
 }
+
+export interface ISubmitAnswer {
+  end_time: string;
+  awnsers: Awnser[];
+}
+
+export interface Awnser {
+  questionId: string;
+  awnser: string;
+}

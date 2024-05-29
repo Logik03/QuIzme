@@ -4,9 +4,7 @@
   <div class="d-flex justify-content-between container header">
     <div>
       <p class="count">
-        {{ currentQuestionIndex + 1 }}/<span>{{
-          game?.questions?.length
-        }}</span>
+        {{ currentQuestionIndex + 1 }}/<span>{{ game.questions.length }}</span>
       </p>
     </div>
     <div>
@@ -38,7 +36,16 @@
             <div>
               <p>{{ item }}</p>
             </div>
-            <div class="check">
+            <div
+              class="check"
+              [ngStyle]="{
+                backgroundColor:
+                  checkIfSelectedOption(
+                    item,
+                    game.questions[currentQuestionIndex].id
+                  ) && 'green'
+              }"
+            >
               <img src="../../../assets/imgs/check.svg" alt="" />
             </div>
           </div>

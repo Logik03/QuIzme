@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../../core/services/game.service';
-import { IStartGameResponse, Question } from '../../core/models/game';
+import { Awnser, IStartGameResponse, Question } from '../../core/models/game';
 
 @Component({
   selector: 'app-game-board',
@@ -13,6 +13,8 @@ export class GameBoardComponent implements OnInit {
   currentQuestionIndex: number = 0;
   score: number = 0;
   interval: any;
+
+  answers: Awnser[] = [];
 
   constructor(private gameService: GameService) {}
 
@@ -46,25 +48,27 @@ export class GameBoardComponent implements OnInit {
   }
 
   nextQuestion() {
-    if (this.currentQuestionIndex < this.game!.questions.length - 1) {
-      this.currentQuestionIndex += 1;
-      this.resetTimer();
-    } else {
-      this.endGame();
-    }
+    if (this.game)
+      if (this.currentQuestionIndex < this.game!.questions.length - 1) {
+        this.currentQuestionIndex += 1;
+        this.resetTimer();
+      } else {
+        this.endGame();
+      }
   }
 
   selectOption(option: string) {
-    const currentQuestion = this.game!.questions[this.currentQuestionIndex];
-    if (option === currentQuestion.options[0]) { // Assuming the first option is the correct one
-      this.score += 1;
-    }
+    const currentQuestion = this.game?.questions[this.currentQuestionIndex];
+    if (currentQuestion)
+      this.answers.push({
+        awnser: option,
+        questionId: currentQuestion.id,
+      });
     this.nextQuestion();
   }
 
   endGame() {
     clearInterval(this.interval);
-    // Display game over and score
     alert(`Game over! Your score is: ${this.score}`);
   }
 
@@ -80,7 +84,32 @@ export class GameBoardComponent implements OnInit {
     } else if (length === 5) {
       return index < 4 ? 'col-lg-3' : 'col-lg-12';
     } else {
-      return 'col-lg-3'; // Default to 4 items per row
+      return 'col-lg-3';
     }
+  }
+
+  submitAnswers() {
+    if (this.game)
+      this.gameService
+        .submitAnswer(this.game.player.id, {
+          awnsers: [
+            {
+              awnser: '',
+              questionId: '',
+            },
+          ],
+          end_time: new Date().toUTCString(),
+        })
+        .subscribe({
+          next: () => {},
+        });
+  }
+
+  checkIfSelectedOption(option: string, id: string) {
+    return (
+      this.answers.filter((a) => {
+        return a.questionId == id && option == a.awnser;
+      }).length > 0
+    );
   }
 }
