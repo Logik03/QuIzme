@@ -1,0 +1,84 @@
+<div class="game-bg" *ngIf="game && !isLoading">
+  <img src="../../../assets/imgs/game-ell.svg" class="ell" alt="" />
+  <img src="../../../assets/imgs/game-ell1.svg" class="ell1" alt="" />
+  <div class="d-flex justify-content-between container header">
+    <div>
+      <p class="count">
+        {{ currentQuestionIndex + 1 }}/<span>{{ game.questions.length }}</span>
+      </p>
+    </div>
+    <div>
+      <div class="timer">
+        <p>{{ timer }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="game-board" *ngIf="game">
+    <div class="question">
+      <div>
+        <p>{{ game.questions[currentQuestionIndex].content }}</p>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <div class="row">
+        <div
+          *ngFor="
+            let item of game.questions[currentQuestionIndex].options;
+            let i = index
+          "
+          [ngClass]="
+            getColClass(game.questions[currentQuestionIndex].options.length, i)
+          "
+          (click)="selectOption(item)"
+        >
+          <div class="answer">
+            <div>
+              <p>{{ item }}</p>
+            </div>
+            <div
+              class="check"
+              [ngStyle]="{
+                backgroundColor:
+                  checkIfSelectedOption(
+                    item,
+                    game.questions[currentQuestionIndex].id
+                  ) && '#039855'
+              }"
+            >
+              <img src="../../../assets/imgs/check.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="no-data d-flex justify-content-center align-items-center"
+  *ngIf="!game && !isLoading && !hasSubmitedGame"
+>
+  <div class="col-lg-4">
+    <img
+      src="https://img.freepik.com/free-vector/hand-drawn-no-data-illustration_23-2150624582.jpg?t=st=1717016047~exp=1717019647~hmac=b9e5e6696d6a5e9efa4df2f467ceaba14ffba1f9787933148ef334860456cdd3&w=1060"
+      class="img-fluid"
+      alt=""
+    />
+    <h4>Ooops... No Game For Now, Check Back Later</h4>
+  </div>
+</div>
+
+<div
+  class="no-data d-flex justify-content-center align-items-center"
+  *ngIf="hasSubmitedGame"
+>
+  <div class="col-lg-4 text-center">
+    <img
+      src="https://img.freepik.com/free-vector/goal-achievement-planning-checklist-flat-composition-with-man-holding-pencil-tick-image_1284-63673.jpg?t=st=1717016728~exp=1717020328~hmac=80a944092526dbec5cd35b42da21d40c34bcfdd4c06bd5221b9312eb7a764e80&w=1060"
+      class="img-fluid"
+      alt=""
+    />
+    <h4>Hurray Friend! <br />Your Answers Has Been Submitted.</h4>
+  </div>
+</div>

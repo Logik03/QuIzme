@@ -20,6 +20,7 @@ export const selectInterests = createAction('[Auth/API] Select Interests',props<
 export const selectInterestsSuccess = createAction('[Auth/API] Select Interests Success',props<{ interests: any }>());
 export const selectInterestsFailure = createAction('[Auth/API] Select Interests Failure',props<{ errorMessage: string }>());
 
+
 // Action for logout
 export const logout = createAction('[Auth/API] Logout');
 export const refreshToken = createAction('[Auth/API] Refresh Token Successful', props<{ token: any}>());

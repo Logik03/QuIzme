@@ -1,3 +1,4 @@
+import { GameBoardComponent } from './../game-board/game-board.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
@@ -19,9 +20,13 @@ const routes: Routes = [
         component: SettingsComponent,
       },
       {
+        path: 'game',
+        component: GameBoardComponent,
+      },
+      {
         path: 'select-interests',
-        component: SelectInterestsComponent
-      }
+        component: SelectInterestsComponent,
+      },
     ],
   },
 ];
