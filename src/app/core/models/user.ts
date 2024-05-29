@@ -6,11 +6,17 @@ export interface IUser {
     token?: string;
 }
 
+export interface IPlayer extends IUser {
+    freeGameUsed: boolean;
+    chancesLeft: number;
+    lastReset: Date;
+}
+
 export interface IUserResponse {
     data: {
         token: string;
         user_data: IUserData; // Assuming UserData is another interface for user data
-        jwt?: string;
+        jwt: string;
     };
     success: string;
     message: string;
@@ -36,4 +42,25 @@ export interface ISignupModel {
     fullname : string;
     password: string;
     username: string;
+}
+export interface IQuestions {
+     _id : string;
+    content : string;
+    options: [];
+    __v: string;
+    id: string;
+}
+export interface IAnswer {
+    _id : string;
+   content : string;
+   options: [];
+   __v: string;
+   id: string;
+}
+export interface ISubmissionResult {
+    _id : string;
+   content : string;
+   options: [];
+   __v: string;
+   id: string;
 }

@@ -33,9 +33,12 @@
 
 .quiz-input {
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 10px !important;
   background-color: #f8f8f8;
   height: 48px !important;
+  padding-right: 40px;
+  //border-top-right-radius: 10px !important;
+  //border-bottom-right-radius: 10px !important;
 }
 .quiz-input:focus {
   border-color: #6949ff; /* Purple border color when input is focused */

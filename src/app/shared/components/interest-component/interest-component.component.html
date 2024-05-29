@@ -1,13 +1,17 @@
-<div>
-    <h2>Select Interests</h2>
-    <div *ngFor="let interest of interests">
-      <input type="checkbox" [id]="interest.id" [value]="interest.name" (change)="toggleSelection($event, interest)">
-      <label [for]="interest.id">{{ interest.name }}</label>
-    </div>
-    <div *ngIf="selectedInterests.length > 0">
-      <h3>Selected Interests:</h3>
-      <ul>
-        <li *ngFor="let selectedInterest of selectedInterests">{{ selectedInterest }}</li>
-      </ul>
+<div class="interest-selection-container">
+  <h2>Select your interests</h2>
+  <div class="interests-grid">
+    <div
+      *ngFor="let interest of interests"
+      (click)="toggleSelection(interest)"
+      [class.selected]="interest.selected"
+      class="interest-item"
+    >
+      <img src="/assets/icons/checked_bag.svg">
+      <!-- <img src="/assets/icons/checked_bag_svg"  alt="" /> -->
+      <span>{{ interest.name }}</span>
     </div>
   </div>
+  <button (click)="continue()" class="continue-button" [disabled]="!interestSelected">Continue</button>
+  
+</div>

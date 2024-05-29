@@ -14,7 +14,9 @@ export const loginFailure = createAction('[Auth/API] Login Failure',props<{ erro
 export const signupFailure = createAction('[Auth/API] SignUp Failure',props<{ errorMessage: string }>());
 
 // Action for selecting Interests, success and failures
-export const selectInterests = createAction('[Auth/API] Select Interests',props<{ payload: { interests: string[] } }>());
+export const selectInterests = createAction('[Auth/API] Select Interests',props<{ payload: {
+  [x: string]: any; interest: string[] 
+} }>());
 export const selectInterestsSuccess = createAction('[Auth/API] Select Interests Success',props<{ interests: any }>());
 export const selectInterestsFailure = createAction('[Auth/API] Select Interests Failure',props<{ errorMessage: string }>());
 

@@ -2,7 +2,8 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducerMap, ActionReducer, MetaReducer, State } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -15,13 +16,29 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
 import { authReducer} from './store/reducers/auth.reducers';
-import { SelectInterestsComponent } from './pages/select-interests/select-interests.component';
+import { AppState } from './store/app.states';
+
+
+const reducers: ActionReducerMap <AppState> = {
+  authState: authReducer,
+};
+
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: [ 
+      'authState',
+    ], 
+    storageKeySerializer: (key) => `cool_${key}`, 
+    rehydrate:true
+    })(reducer);
+  }
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LandingPageComponent,
-    SelectInterestsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +59,7 @@ import { SelectInterestsComponent } from './pages/select-interests/select-intere
     }),
     BrowserAnimationsModule,
     //StoreModule.forRoot({}, {}),
-    StoreModule.forRoot({ auth : authReducer }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 

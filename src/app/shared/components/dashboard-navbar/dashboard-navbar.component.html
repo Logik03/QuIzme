@@ -1,8 +1,8 @@
 <nav class="navbar justify-content-between sticky-top">
   <div class="container">
-    <a class="navbar-brand"
-      ><img src="../../../assets/imgs/logo.svg" alt="" srcset=""
-    /></a>
+    <div class="logo-container">
+      <img (click)="logOut()" src="../../../assets/images/logo.png" alt="Logo" />
+    </div>
 
     <form class="d-flex gap-2 tab-con">
       <div
@@ -50,11 +50,11 @@
       </div>
 
       <div class="col-lg-8 col-12 col-md d-flex justify-content-end">
-        <div class="user-box d-flex gap-1">
+        <div class="user-box d-flex gap-1" *ngIf="user$ | async as user">
           <div><img src="../../../assets/imgs/avatars.svg" alt="" /></div>
-          <div>
-            <p class="name">Izzytheguy</p>
-            <p class="sub">{{ "adegbulugbeisrae@gmail.com" }}</p>
+          <div class="details">
+            <p class="name">{{ user?.username }}</p>
+            <p class="sub">{{ user?.email }}</p>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { SelectInterestsGuard } from './core/guards/select-interests.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'welcome' },
@@ -19,7 +20,15 @@ const routes: Routes = [
       import(`./pages/dashboard/dashboard.module`).then(
         (m) => m.DashboardModule
       ),
-    canActivate: [AuthGuard],
+     canActivate: [AuthGuard, SelectInterestsGuard],
+  },
+  {
+    path: 'select-interests',
+    loadChildren: () =>
+      import('./pages/select-interests/select-interests.module').then(
+        (m) => m.SelectInterestsModule
+      ),
+    canActivate: [AuthGuard],  // if needed
   },
   {
     path: 'welcome',

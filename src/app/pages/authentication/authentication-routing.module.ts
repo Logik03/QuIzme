@@ -24,7 +24,7 @@ const routes: Routes = [
   { 
     path: 'email-verification', 
     component: EmailVerificationComponent 
-  }
+  },
   
 ];
 
