@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ISigninModel, ISignupModel, IUser, IUserResponse } from '../../core/models/user';
+import { ISigninModel, ISignupModel, IUser, IUserData, IUserResponse } from '../../core/models/user';
 
 
 export const login = createAction('[Auth/API] Login',props<{ payload : ISigninModel}>());
@@ -7,7 +7,7 @@ export const signup = createAction('[Auth/API] Sign Up',props<{ payload : ISignu
 
 // Action for login success
 export const loginSuccess = createAction('[Auth/API] Login Success',props<{ user: IUserResponse }>());
-export const signupSuccess = createAction('[Auth/API] SignUp Success',props<{ user: IUserResponse }>());
+export const signupSuccess = createAction('[Auth/API] SignUp Success',props<{ user: IUserResponse  }>());
   
 // Action for login failure
 export const loginFailure = createAction('[Auth/API] Login Failure',props<{ errorMessage: string }>());

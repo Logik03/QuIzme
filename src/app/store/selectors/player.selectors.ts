@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PlayerState} from '../reducers/player.reducers';
 
-export const selectPlayerState = createFeatureSelector<PlayerState>('player');
+export const selectPlayerState = createFeatureSelector<PlayerState>('playerState');
 
 export const selectPlayerId = createSelector(
   selectPlayerState,
@@ -20,5 +20,5 @@ export const selectChancesLeft = createSelector(
 
 export const selectLastReset = createSelector(
   selectPlayerState,
-  (state: PlayerState) => state.lastReset
+  (state: PlayerState) => state?.lastReset ?? new Date()
 );

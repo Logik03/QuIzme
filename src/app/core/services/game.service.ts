@@ -18,4 +18,8 @@ export class GameService {
   submitAnswer(id: string, payload: ISubmitAnswer): Observable<IResponse> {
     return this.http.post<IResponse>(this.baseUrl + `/game/end/${id}`, payload);
   }
+
+  getPlayer(payload:any): Observable<IResponse> {
+    return this.http.post<IResponse>(this.baseUrl + `/game/end`, payload);
+  }
 }

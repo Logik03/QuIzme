@@ -5,6 +5,8 @@ import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadPlayer } from '../actions/player.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -34,6 +36,16 @@ export class AuthEffects {
         )
       )
     )
+  );
+
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthPageActions.loginSuccess),
+      tap(action => {
+        const playerId = action.user.data.user_data.id; // assuming your user object has a playerId field
+        this.store.dispatch(loadPlayer({ playerId }));
+      })
+    ), { dispatch: false }
   );
 
   selectInterests$ = createEffect(() => 
@@ -67,6 +79,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthenticationService,
-    private router : Router
+    private router : Router,
+    private store: Store
   ) {}
 }

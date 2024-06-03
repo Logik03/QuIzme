@@ -16,11 +16,19 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthEffects } from './store/effects/auth.effects';
 import { authReducer} from './store/reducers/auth.reducers';
+import { gameReducer} from './store/reducers/game.reducers';
+import { adReducer} from './store/reducers/ad.reducers';
+import { playerReducer} from './store/reducers/player.reducers';
 import { AppState } from './store/app.states';
+import { GameEffects } from './store/effects/game.effects';
+import { PlayerEffects } from './store/effects/player.effects';
 
 
 const reducers: ActionReducerMap <AppState> = {
   authState: authReducer,
+  gameState: gameReducer,
+  adState: adReducer,
+  playerState: playerReducer
 };
 
 
@@ -28,6 +36,9 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
   return localStorageSync({
     keys: [ 
       'authState',
+      'gameState',
+      'adState',
+      'playerState',
     ], 
     storageKeySerializer: (key) => `cool_${key}`, 
     rehydrate:true
@@ -60,7 +71,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     BrowserAnimationsModule,
     //StoreModule.forRoot({}, {}),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, GameEffects, PlayerEffects]),
     StoreDevtoolsModule.instrument({ 
       maxAge: 25, 
       logOnly: isDevMode() 

@@ -20,13 +20,18 @@ export const initialState: PlayerState = {
 
 export const playerReducer = createReducer(
   initialState,
-  on(PlayerActions.loadPlayer, (state) => {
+  on(PlayerActions.loadPlayer, (state, { playerId }) => {
     console.log('load player action is dispatched');
-      return {...state, isLoading: true};
+      return {
+        ...state, 
+        isLoading: true,
+        playerId
+      };
   }),
-  on(PlayerActions.loadPlayerSuccess, (state, { player }) => ({
+  on(PlayerActions.loadPlayerSuccess, (state, { playerId }) => ({
      ...state, 
-     ...player 
+     playerId, 
+     isLoading:false,
   })),
   on(PlayerActions.loadPlayerFailure, (state, { error }) => ({
     ...state,
@@ -35,7 +40,7 @@ export const playerReducer = createReducer(
   })),
   on(PlayerActions.resetDailyLimits, state => ({
     ...state,
-    freeGameUsed: false,
+    freeGameUsed: true,
     chancesLeft: 4,
     lastReset: new Date(),
   })),
@@ -46,6 +51,7 @@ export const playerReducer = createReducer(
   on(PlayerActions.useChance, state => ({ 
     ...state, 
     chancesLeft: state.chancesLeft - 1 
-  }))
+  })),
+  on(PlayerActions.updatePlayerState, (state, { updates }) => ({ ...state, ...updates }))
 );
 

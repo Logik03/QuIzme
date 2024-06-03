@@ -11,7 +11,7 @@
             <p class="sub">Compete with other players in a quiz to win $$$</p>
           </div>
         </div>
-        <button class="btn-1" (click)="play()">Play Now</button>
+        <button class="btn-1" (click)="onPlayNow()">Play Now</button>
       </div>
       <div class="col-lg-4 col-sm-4 timer">
         <p class="title">RESETS IN</p>
@@ -168,4 +168,4 @@
   </div>
 </div>
 
-<app-ads (adDismissed)="onAdDismissed($event)" *ngIf="wantsToPlay"></app-ads>
+<app-ads (adDismissed)="onAdDismissed()" *ngIf="wantsToPlay"></app-ads>
