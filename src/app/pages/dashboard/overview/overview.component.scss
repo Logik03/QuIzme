@@ -43,6 +43,10 @@
     border: none;
     margin-top: 10px;
   }
+  button:disabled {
+    background-color: #c0b6ed; /* Change background color to grey */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+  }
 
   .timer {
     display: flex;
@@ -125,6 +129,10 @@
     }
     .btn-1 {
       display: none;
+    }
+    .btn-1:disabled {
+      background-color: #c0b6ed; /* Change background color to grey */
+      cursor: not-allowed; /* Change cursor to not-allowed */
     }
   }
   .time-va {

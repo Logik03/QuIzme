@@ -10,4 +10,5 @@ export const resetDailyLimits = createAction('[Game/API] Reset Daily Limits');
 
 export const useFreeGame = createAction('[Game/API] Use Free Game');
 export const useChance = createAction('[Game/API] Use Chance');
+export const resetPlayerState = createAction('[Player] Reset State');
 export const updatePlayerState = createAction('[Player] Update Player State', props<{ updates: Partial<IPlayer> }>());

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, take, tap, withLatestFrom } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
+import * as PlayerActions from '../actions/player.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadPlayer } from '../actions/player.actions';
+import { selectPlayerState } from '../selectors/player.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -70,11 +72,20 @@ export class AuthEffects {
         tap(() => {
           localStorage.clear();
           this.router.navigate(['/welcome'], { replaceUrl: true });
+          return PlayerActions.resetPlayerState();
         })
       ),
     { dispatch: false }
   );
   // You might want to add additional effects for handling logout in a similar manner.
+
+  resetPlayerStateOnLogout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthPageActions.logout),
+      withLatestFrom(this.store.select(selectPlayerState)),
+      map(([action, playerState]) => PlayerActions.resetPlayerState())
+    )
+  );
 
   constructor(
     private actions$: Actions,

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { GameState } from '../../../store/reducers/game.reducers';
 import { PlayerState } from '../../../store/reducers/player.reducers';
 import { startGame } from '../../../store/actions/game.actions';
@@ -15,7 +15,7 @@ import { selectUser } from '../../../store/selectors/auth.selectors';
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit {
   gameState$!: Observable<GameState>;
   playerState$!: Observable<PlayerState>;
   private playerStateSubscription!: Subscription;
@@ -119,13 +119,24 @@ export class OverviewComponent {
     },
   ];
   user$!: Observable<IUserData | null>;
+  buttonText: string = 'Play Now';
 
-  constructor(private route: Router,  private store: Store<AppState>,
-    private router: Router) {
-      this.gameState$ = this.store.pipe(select('gameState'));
-      this.playerState$ = this.store.pipe(select('playerState'));
-      this.user$ = this.store.pipe(select(selectUser));
+  constructor(
+    private route: Router,  
+    private store: Store<AppState>,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {
+      
     }
+  ngOnInit(){
+    this.gameState$ = this.store.pipe(select('gameState'));
+    this.playerState$ = this.store.pipe(select('playerState'));
+    this.playerState$.subscribe(state => {
+      console.log('Player State:', state); // Debugging line to ensure state is correct
+    });
+    this.cd.detectChanges();
+  }
 
   /* onPlayNow() {
     this.playerState$.subscribe(player => {
@@ -157,9 +168,11 @@ export class OverviewComponent {
   } */
 
   onPlayNow() {
-    this.playerStateSubscription = this.playerState$.subscribe(player => {
+    this.playerStateSubscription = this.playerState$.pipe(
+      take(1) // Unsubscribe after the first emission
+    ).subscribe(player => {
       console.log(player, 'I am the current player');
-
+  
       if (player && (!player.freeGameUsed || player.chancesLeft > 0)) {
         const payload = { playerId: player.playerId };
         this.store.dispatch(startGame({ payload }));
