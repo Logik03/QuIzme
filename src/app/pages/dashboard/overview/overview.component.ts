@@ -119,13 +119,16 @@ export class OverviewComponent {
     },
   ];
   user$!: Observable<IUserData | null>;
-
-  constructor(private route: Router,  private store: Store<AppState>,
-    private router: Router) {
-      this.gameState$ = this.store.pipe(select('gameState'));
-      this.playerState$ = this.store.pipe(select('playerState'));
-      this.user$ = this.store.pipe(select(selectUser));
-    }
+  active = 1;
+  constructor(
+    private route: Router,
+    private store: Store<AppState>,
+    private router: Router
+  ) {
+    this.gameState$ = this.store.pipe(select('gameState'));
+    this.playerState$ = this.store.pipe(select('playerState'));
+    this.user$ = this.store.pipe(select(selectUser));
+  }
 
   /* onPlayNow() {
     this.playerState$.subscribe(player => {
@@ -157,7 +160,7 @@ export class OverviewComponent {
   } */
 
   onPlayNow() {
-    this.playerStateSubscription = this.playerState$.subscribe(player => {
+    this.playerStateSubscription = this.playerState$.subscribe((player) => {
       console.log(player, 'I am the current player');
 
       if (player && (!player.freeGameUsed || player.chancesLeft > 0)) {
@@ -169,8 +172,7 @@ export class OverviewComponent {
         console.log('No free games or chances left');
       }
     });
-}
-
+  }
 
   play() {
     this.wantsToPlay = true;
