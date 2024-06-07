@@ -125,6 +125,7 @@ export class OverviewComponent implements OnInit {
   ];
   user$!: Observable<IUserData | null>;
   buttonText: string = 'Play Now';
+  active = 1;
 
   constructor(
     private route: Router,  
