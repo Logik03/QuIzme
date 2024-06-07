@@ -52,6 +52,10 @@ export const playerReducer = createReducer(
     ...state, 
     chancesLeft: state.chancesLeft - 1 
   })),
+  on(PlayerActions.updatePlayerId, (state, { playerId }) => ({
+    ...state,
+    playerId  
+  })),
   on(PlayerActions.updatePlayerState, (state, { updates }) => ({ ...state, ...updates })),
   on(PlayerActions.resetPlayerState, () => initialState)
 );

@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import * as GameActions from '../actions/game.actions';
-import {  IQuestions, IAnswer,ISubmissionResult } from '../../core/models/user';
+import {  IQuestions, IAnswer,ISubmissionResult, IQuestion } from '../../core/models/user';
 
 export interface GameState {
-  questions: IQuestions[];
+  questions: any;
   currentQuestionIndex: number;
   timeLeft: number;
   answers: IAnswer[];
@@ -30,7 +30,7 @@ export const gameReducer = createReducer(
   })),
   on(GameActions.loadQuestionsSuccess, (state, { questions }) => ({ 
     ...state, 
-    questions 
+    questions
   })),
   on(GameActions.answerQuestion, (state, { answer }) => ({
     ...state,
@@ -50,5 +50,6 @@ export const gameReducer = createReducer(
     ...state, 
     isSubmitting: false, 
     submissionResult: null 
-  }))
+  })),
+  on(GameActions.resetGameState, () => initialState)
 );

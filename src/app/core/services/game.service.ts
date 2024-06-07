@@ -15,7 +15,7 @@ export class GameService {
     return this.http.get<IResponse>(this.baseUrl + '/game/start?lat=12&long=8');
   }
 
-  submitAnswer(id: string, payload: ISubmitAnswer): Observable<IResponse> {
+  submitAnswer(id: string, payload: any): Observable<IResponse> {
     return this.http.post<IResponse>(this.baseUrl + `/game/end/${id}`, payload);
   }
 

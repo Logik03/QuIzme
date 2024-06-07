@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, take, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, exhaustMap, map, mergeMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
 import * as PlayerActions from '../actions/player.actions';
+import * as GameActions from '../actions/game.actions';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadPlayer } from '../actions/player.actions';
 import { selectPlayerState } from '../selectors/player.selectors';
+import { selectGameState } from '../selectors/game.selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -72,8 +74,12 @@ export class AuthEffects {
         tap(() => {
           localStorage.clear();
           this.router.navigate(['/welcome'], { replaceUrl: true });
-          return PlayerActions.resetPlayerState();
-        })
+          //return PlayerActions.resetPlayerState();
+        }),
+        mergeMap(() => [
+          PlayerActions.resetPlayerState(),
+          GameActions.resetGameState()
+        ])
       ),
     { dispatch: false }
   );
@@ -86,6 +92,15 @@ export class AuthEffects {
       map(([action, playerState]) => PlayerActions.resetPlayerState())
     )
   );
+
+  resetGameStateOnLogout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthPageActions.logout),
+      withLatestFrom(this.store.select(selectGameState)),
+      map(([action, GameState]) => GameActions.resetGameState())
+    )
+  );
+
 
   constructor(
     private actions$: Actions,

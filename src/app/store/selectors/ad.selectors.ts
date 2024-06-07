@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AdState } from '../reducers/ad.reducers';
 
-export const selectAdState = createFeatureSelector<AdState>('ad');
+export const selectAdState = createFeatureSelector<AdState>('adState');
 
 export const selectIsWatchingAd = createSelector(
   selectAdState,

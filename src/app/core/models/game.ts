@@ -1,3 +1,5 @@
+import { IAnswer } from "./user";
+
 export interface IResponse {
   success: boolean;
   message: string;
@@ -10,6 +12,7 @@ export interface IStartGameResponse {
   questions: Question[];
   adverts: Advert[];
   playerId: string;
+  answers: { [questionId: string]: IAnswer };
 }
 
 export interface Player {
@@ -44,10 +47,10 @@ export interface Advert {
 
 export interface ISubmitAnswer {
   end_time: string;
-  awnsers: Awnser[];
+  awnsers: IAnswer;
 }
 
-export interface Awnser {
+/* export interface Awnser {
   questionId: string;
   awnser: string;
-}
+} */
