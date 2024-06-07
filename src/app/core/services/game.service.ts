@@ -19,6 +19,10 @@ export class GameService {
     return this.http.post<IResponse>(this.baseUrl + `/game/end/${id}`, payload);
   }
 
+  getPlayerHistory(id: string): Observable<IResponse> {
+    return this.http.get<IResponse>(this.baseUrl + `/game/user-history/${id}`);
+  }
+
   getPlayer(payload:any): Observable<IResponse> {
     return this.http.post<IResponse>(this.baseUrl + `/game/end`, payload);
   }

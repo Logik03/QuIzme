@@ -50,7 +50,12 @@ export interface ISubmitAnswer {
   awnsers: IAnswer;
 }
 
-/* export interface Awnser {
-  questionId: string;
-  awnser: string;
-} */
+export interface IPlayerHistory {
+  user: string
+  no_of_plays: number
+  played_today: boolean
+  score: number
+  started_at: string
+  game_score: number
+  id: string
+}

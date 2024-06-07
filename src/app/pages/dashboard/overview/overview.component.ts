@@ -11,6 +11,8 @@ import { IUserData } from '../../../core/models/user';
 import { selectUser } from '../../../store/selectors/auth.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdvertComponent } from '../advert/advert.component';
+import { IPlayerHistory } from '../../../core/models/game';
+import { GameService } from '../../../core/services/game.service';
 
 @Component({
   selector: 'app-overview',
@@ -21,6 +23,7 @@ export class OverviewComponent implements OnInit {
   gameState$!: Observable<GameState>;
   playerState$!: Observable<PlayerState>;
   private playerStateSubscription!: Subscription;
+  player_history: IPlayerHistory[] = [];
   wantsToPlay: boolean = false;
   winners = [
     {
@@ -128,7 +131,8 @@ export class OverviewComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     private cd: ChangeDetectorRef,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _s: GameService
   ) {
       
     }
@@ -137,6 +141,10 @@ export class OverviewComponent implements OnInit {
     this.playerState$ = this.store.pipe(select('playerState'));
     this.playerState$.subscribe(state => {
       console.log('Player State:', state); // Debugging line to ensure state is correct
+    });
+    this.user$ = this.store.pipe(select(selectUser));
+    this.user$.subscribe((user) => {
+      this.getPlayerHistory(user?.id || '');
     });
     this.cd.detectChanges();
   }
@@ -187,5 +195,17 @@ export class OverviewComponent implements OnInit {
   onAdDismissed() {
     this.store.dispatch(useFreeGame());
     this.router.navigate(['/dashboard']);
+  }
+  getPlayerHistory(id: string) {
+    this._s.getPlayerHistory(id).subscribe({
+      next: (res) => {
+        this.player_history = res.data?.map((data: IPlayerHistory) => {
+          return {
+            ...data,
+            started_at: new Date(data.started_at).toLocaleDateString(),
+          };
+        });
+      },
+    });
   }
 }
