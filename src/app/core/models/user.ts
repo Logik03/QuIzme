@@ -52,19 +52,47 @@ export interface ISignupModel {
   password: string;
   username: string;
 }
+/* export interface IQuestions {
+    data: {
+        adverts: [];
+        games_played: number; // Assuming UserData is another interface for user data
+        player_id: string;
+        questions: {
+            _id : string;
+            content : string;
+            for_day: Date,
+            awnser: string,
+            options: [];
+            __v: string;
+            id: string;
+        }
+    };  
+} */
+export interface IQuestion {
+    awnser: string;
+    _id: string;
+    content: string;
+    for_day: Date;
+    isconstant:boolean;
+    answer: string;
+    options: [];
+    __v: string;
+    id: string;
+}
+
+export interface IGameData {
+    adverts: any[]; // You can replace 'any' with the actual type of adverts
+    games_played: number; // Assuming UserData is another interface for user data
+    player_id: string;
+    questions: IQuestion[];
+}
+
 export interface IQuestions {
-  _id: string;
-  content: string;
-  options: [];
-  __v: string;
-  id: string;
+    data:  IGameData;
 }
 export interface IAnswer {
-  _id: string;
-  content: string;
-  options: [];
-  __v: string;
-  id: string;
+  questionId: string;
+  answer: string;
 }
 export interface ISubmissionResult {
   _id: string;
