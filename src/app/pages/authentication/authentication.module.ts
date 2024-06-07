@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { RouterModule } from '@angular/router';
 
 //import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -25,6 +26,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     ReactiveFormsModule,
     FormsModule,
     NgOtpInputModule,
+    RouterModule
   ],
   providers: [AuthenticationService],
 })
