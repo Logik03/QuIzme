@@ -1,4 +1,4 @@
-<div class="game-bg" *ngIf="game && !isLoading">
+<div class="game-bg" *ngIf="game">
   <img src="../../../assets/imgs/game-ell.svg" class="ell" alt="" />
   <img src="../../../assets/imgs/game-ell1.svg" class="ell1" alt="" />
   <div class="d-flex justify-content-between container header">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="game-board" *ngIf="game">
+  <div class="game-board" *ngIf="game.questions[currentQuestionIndex]">
     <div class="question">
       <div>
         <p>{{ game.questions[currentQuestionIndex].content }}</p>

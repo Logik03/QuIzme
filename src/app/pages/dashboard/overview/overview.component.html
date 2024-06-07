@@ -13,7 +13,7 @@
         </div>
         <ng-container *ngIf="playerState$ | async as playerState">
           <button class="btn-1" (click)="onPlayNow()" [disabled]="playerState.chancesLeft === 0">
-            {{ playerState.freeGameUsed ? 'Watch Ad to Continue' : 'Play Now' }}
+            {{ playerState.freeGameUsed ? 'Watch Ad to play' : 'Play Now' }}
           </button>
          </ng-container> 
       </div>
@@ -172,4 +172,4 @@
   </div>
 </div>
 
-<app-ads (adDismissed)="onAdDismissed()" *ngIf="wantsToPlay"></app-ads>
+<!-- <app-ads (adDismissed)="onAdDismissed()" *ngIf="wantsToPlay"></app-ads> -->

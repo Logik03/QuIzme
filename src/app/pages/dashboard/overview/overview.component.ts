@@ -9,6 +9,8 @@ import { useFreeGame } from '../../../store/actions/player.actions';
 import { AppState } from '../../../store/app.states';
 import { IUserData } from '../../../core/models/user';
 import { selectUser } from '../../../store/selectors/auth.selectors';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AdvertComponent } from '../advert/advert.component';
 
 @Component({
   selector: 'app-overview',
@@ -125,7 +127,8 @@ export class OverviewComponent implements OnInit {
     private route: Router,  
     private store: Store<AppState>,
     private router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private modalService: NgbModal
   ) {
       
     }
@@ -138,52 +141,40 @@ export class OverviewComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  /* onPlayNow() {
-    this.playerState$.subscribe(player => {
-      if (!player.freeGameUsed || player.chancesLeft > 0) {
-        this.store.dispatch(startGame());
-        this.route.navigate(['/dashboard/game']); // Navigate to the game board
-      } else {
-        // Handle the case where the player has no free game or chances left
-        console.log('No free games or chances left');
-      }
-    });
-  } */
-
-  /* onPlayNow() {
-    this.playerStateSubscription = this.playerState$.subscribe(player => {
-      console.log(player, 'i am the current player')
-      const payload = {
-        playerId: player.playerId,
-        // Add any other necessary information to the payload
-      };
-      if (player && (!player.freeGameUsed || player.chancesLeft > 0)) {
-        this.store.dispatch(startGame({ payload }));
-        this.route.navigate(['/dashboard/game']); // Navigate to the game board
-      } else {
-        // Handle the case where the player has no free game or chances left
-        console.log('No free games or chances left');
-      }
-    });
-  } */
+ 
 
   onPlayNow() {
     this.playerStateSubscription = this.playerState$.pipe(
       take(1) // Unsubscribe after the first emission
     ).subscribe(player => {
       console.log(player, 'I am the current player');
-  
-      if (player && (!player.freeGameUsed || player.chancesLeft > 0)) {
+      
+      if (player) {
         const payload = { playerId: player.playerId };
-        this.store.dispatch(startGame({ payload }));
-        this.route.navigate(['/dashboard/game']); // Navigate to the game board
-      } else {
-        // Handle the case where the player has no free game or chances left
-        console.log('No free games or chances left');
+  
+        switch (true) {
+          case !player.freeGameUsed:
+            this.store.dispatch(startGame({ payload }));
+            break;
+          case player.chancesLeft > 0:
+            // Show ad and then start the game
+            this.showAdThenStartGame(payload);
+            break;
+          default:
+            // Handle the case where the player has no free game or chances left
+            console.log('No free games or chances left');
+            break;
+        }
       }
     });
-}
+  }
 
+  showAdThenStartGame(payload: { playerId: string }) {
+    const modalRef = this.modalService.open(AdvertComponent, { backdrop: 'static', keyboard: false });
+    /* modalRef.componentInstance.onAdDismissed.subscribe(() => {
+      this.store.dispatch(startGame({ payload }));
+    }); */
+  }
 
   play() {
     this.wantsToPlay = true;

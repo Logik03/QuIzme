@@ -6,9 +6,10 @@ import { OverviewComponent } from './overview/overview.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SettingsComponent } from './settings/settings.component';
 import { GameBoardComponent } from '../game-board/game-board.component';
+import { AdvertComponent } from './advert/advert.component';
 
 @NgModule({
-  declarations: [OverviewComponent, SettingsComponent, GameBoardComponent],
+  declarations: [OverviewComponent, SettingsComponent, GameBoardComponent, AdvertComponent],
   imports: [CommonModule, DashboardRoutingModule, SharedModule],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
