@@ -9,6 +9,8 @@ import { useFreeGame } from '../../../store/actions/player.actions';
 import { AppState } from '../../../store/app.states';
 import { IUserData } from '../../../core/models/user';
 import { selectUser } from '../../../store/selectors/auth.selectors';
+import { GameService } from '../../../core/services/game.service';
+import { IPlayerHistory } from '../../../core/models/game';
 
 @Component({
   selector: 'app-overview',
@@ -20,6 +22,7 @@ export class OverviewComponent {
   playerState$!: Observable<PlayerState>;
   private playerStateSubscription!: Subscription;
   wantsToPlay: boolean = false;
+  player_history: IPlayerHistory[] = [];
   winners = [
     {
       number: 4,
@@ -119,13 +122,20 @@ export class OverviewComponent {
     },
   ];
   user$!: Observable<IUserData | null>;
-
-  constructor(private route: Router,  private store: Store<AppState>,
-    private router: Router) {
-      this.gameState$ = this.store.pipe(select('gameState'));
-      this.playerState$ = this.store.pipe(select('playerState'));
-      this.user$ = this.store.pipe(select(selectUser));
-    }
+  active = 1;
+  constructor(
+    private route: Router,
+    private store: Store<AppState>,
+    private router: Router,
+    private _s: GameService
+  ) {
+    this.gameState$ = this.store.pipe(select('gameState'));
+    this.playerState$ = this.store.pipe(select('playerState'));
+    this.user$ = this.store.pipe(select(selectUser));
+    this.user$.subscribe((user) => {
+      this.getPlayerHistory(user?.id || '');
+    });
+  }
 
   /* onPlayNow() {
     this.playerState$.subscribe(player => {
@@ -157,7 +167,7 @@ export class OverviewComponent {
   } */
 
   onPlayNow() {
-    this.playerStateSubscription = this.playerState$.subscribe(player => {
+    this.playerStateSubscription = this.playerState$.subscribe((player) => {
       console.log(player, 'I am the current player');
 
       if (player && (!player.freeGameUsed || player.chancesLeft > 0)) {
@@ -169,11 +179,23 @@ export class OverviewComponent {
         console.log('No free games or chances left');
       }
     });
-}
-
+  }
 
   play() {
     this.wantsToPlay = true;
+  }
+
+  getPlayerHistory(id: string) {
+    this._s.getPlayerHistory(id).subscribe({
+      next: (res) => {
+        this.player_history = res.data?.map((data: IPlayerHistory) => {
+          return {
+            ...data,
+            started_at: new Date(data.started_at).toLocaleDateString(),
+          };
+        });
+      },
+    });
   }
 
   /* onAdDismissed(event: any) {
