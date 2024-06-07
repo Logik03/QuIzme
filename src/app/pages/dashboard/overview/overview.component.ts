@@ -188,14 +188,6 @@ export class OverviewComponent implements OnInit {
     this.wantsToPlay = true;
   }
 
-  /* onAdDismissed(event: any) {
-    this.wantsToPlay = false;
-    this.route.navigate(['/dashboard/game']);
-  } */
-  onAdDismissed() {
-    this.store.dispatch(useFreeGame());
-    this.router.navigate(['/dashboard']);
-  }
   getPlayerHistory(id: string) {
     this._s.getPlayerHistory(id).subscribe({
       next: (res) => {
@@ -207,5 +199,14 @@ export class OverviewComponent implements OnInit {
         });
       },
     });
+  }
+
+  /* onAdDismissed(event: any) {
+    this.wantsToPlay = false;
+    this.route.navigate(['/dashboard/game']);
+  } */
+  onAdDismissed() {
+    this.store.dispatch(useFreeGame());
+    this.router.navigate(['/dashboard']);
   }
 }
