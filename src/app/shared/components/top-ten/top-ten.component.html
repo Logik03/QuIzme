@@ -1,0 +1,91 @@
+<!-- <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-5">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Global Leaderboard</button>
+      <ng-template ngbNavContent>
+        <div class="table-wh">
+          <div class="d-flex mt-5 even-r px-1">
+            <div class="number"></div>
+            <div class="player">
+              <p class="t-head mt-2">PLAYER</p>
+            </div>
+            <div class="time"><p class="t-head mt-2">TIME</p></div>
+            <div class="points"><p class="t-head mt-2">POINTS</p></div>
+          </div>
+          <div
+            class="row odd"
+            [ngClass]="{ 'bg-white': i % 2 == 1 }"
+            *ngFor="let wiiner of winners; let i = index"
+          >
+            <div class="number">
+              <div class="number-cir">
+                <p>{{ wiiner.number }}</p>
+              </div>
+            </div>
+            <div class="player">
+              <div class="d-flex h-100 gap-1 align-items-center">
+                <div><img src="../../../assets/icons/av-1.svg" alt="" /></div>
+                <div>
+                  <p class="name mt-3">{{ wiiner.name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="time">
+              <p class="time-va mt-3" style="margin-left: -10px">
+                {{ wiiner.time }}
+              </p>
+            </div>
+            <div class="points d-flex justify-content-end">
+              <div class="point-bg">
+                <p>{{ wiiner.point }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>My Winning History</button>
+      <ng-template ngbNavContent>
+        <div class="table-wh">
+          <div class="d-flex mt-5 even-r px-1">
+            <div class="number"></div>
+            <div class="player">
+              <p class="t-head mt-2">PLAYER</p>
+            </div>
+            <div class="time"><p class="t-head mt-2">DATE</p></div>
+            <div class="points"><p class="t-head mt-2">POINTS</p></div>
+          </div>
+          <div
+            class="row odd"
+            [ngClass]="{ 'bg-white': i % 2 == 1 }"
+            *ngFor="let his of player_history; let i = index"
+          >
+            <div class="number">
+              <div class="number-cir">
+                <p>{{ his.no_of_plays }}</p>
+              </div>
+            </div>
+            <div class="player">
+              <div class="d-flex h-100 gap-1 align-items-center">
+                <div><img src="../../../assets/icons/av-1.svg" alt="" /></div>
+                <div>
+                  <p class="name mt-3">{{ (user$ | async)?.username }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="time">
+              <p class="time-va mt-3" style="margin-left: -10px">
+                {{ his.started_at }}
+              </p>
+            </div>
+            <div class="points d-flex justify-content-end">
+              <div class="point-bg">
+                <p>{{ his.game_score || 0 }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+ -->

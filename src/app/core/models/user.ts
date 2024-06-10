@@ -92,7 +92,7 @@ export interface IQuestions {
 }
 export interface IAnswer {
   questionId: string;
-  answer: string;
+  awnser: string;
 }
 export interface ISubmissionResult {
   _id: string;

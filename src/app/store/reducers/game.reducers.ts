@@ -6,7 +6,7 @@ export interface GameState {
   questions: any;
   currentQuestionIndex: number;
   timeLeft: number;
-  answers: IAnswer[];
+  awnsers: IAnswer[];
   isSubmitting: boolean;
   submissionResult: ISubmissionResult | null;
 }
@@ -15,7 +15,7 @@ export const initialState: GameState = {
   questions: [],
   currentQuestionIndex: 0,
   timeLeft: 60,
-  answers: [],
+  awnsers: [],
   isSubmitting: false,
   submissionResult: null,
 };
@@ -32,9 +32,9 @@ export const gameReducer = createReducer(
     ...state, 
     questions
   })),
-  on(GameActions.answerQuestion, (state, { answer }) => ({
+  on(GameActions.answerQuestion, (state, { awnser }) => ({
     ...state,
-    answers: [...state.answers, answer],
+    answers: [...state.awnsers, awnser],
     currentQuestionIndex: state.currentQuestionIndex + 1,
   })),
   on(GameActions.submitAnswers, state => ({ 
