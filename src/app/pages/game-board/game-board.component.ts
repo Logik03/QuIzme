@@ -24,7 +24,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   score: number = 0;
   interval: any;
   //isLoading: boolean = false;
-  answers: IAnswer[] = [];
+  awnsers: IAnswer[] = [];
   hasSubmitedGame: boolean = false;
   game$!: Observable<GameState>;
   player$!: Observable<PlayerState>;
@@ -107,11 +107,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   selectOption(option: string): void {
     if (this.game && this.game.questions.length > 0) {
-      const answer: IAnswer = {
+      const awnser: IAnswer = {
         questionId: this.game.questions[this.currentQuestionIndex].id,
-        answer: option
+        awnser: option
       };
-      this.store.dispatch(GameActions.answerQuestion({ answer }));
+      this.store.dispatch(GameActions.answerQuestion({ awnser }));
       this.nextQuestion();
     }
   }
@@ -134,8 +134,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   
       if (playerId) {
         // Dispatch an action to submit all answers
-        const answers = Object.values(this.game.answers);
-        this.store.dispatch(GameActions.submitAnswers({ playerId, answers }));
+        const awnsers = Object.values(this.game.awnsers);
+        this.store.dispatch(GameActions.submitAnswers({ playerId, awnsers }));
         this.hasSubmittedGame = true;
   
         // Check if the player has used their free game and show an interstitial ad if not
@@ -249,8 +249,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   checkIfSelectedOption(option: string, id: string) {
     return (
-      this.answers.filter((a) => {
-        return a.questionId == id && option == a.answer;
+      this.awnsers.filter((a) => {
+        return a.questionId == id && option == a.awnser;
       }).length > 0
     );
   }

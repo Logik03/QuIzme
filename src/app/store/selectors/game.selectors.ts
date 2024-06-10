@@ -20,7 +20,7 @@ export const selectTimeLeft = createSelector(
 
 export const selectAnswers = createSelector(
   selectGameState,
-  (state: GameState) => state.answers
+  (state: GameState) => state.awnsers
 );
 
 export const selectIsSubmitting = createSelector(

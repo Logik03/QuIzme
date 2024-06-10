@@ -9,6 +9,8 @@ import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboar
 import { RouterModule } from '@angular/router';
 import { AdsComponent } from './components/ads/ads.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TopThreeComponent } from './components/top-three/top-three.component';
+import { TopTenComponent } from './components/top-ten/top-ten.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -19,6 +21,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     InterestComponentComponent,
     DashboardNavbarComponent,
     AdsComponent,
+    TopThreeComponent,
+    TopTenComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     InterestComponentComponent,
     DashboardNavbarComponent,
     AdsComponent,
+    TopThreeComponent,
+    TopTenComponent,
     NgbModule,
   ],
 })

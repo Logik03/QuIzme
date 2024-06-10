@@ -78,7 +78,7 @@ export class GameEffects {
       switchMap(([action, playerId]) => { 
         console.log('Action:', action);
         console.log('Player ID:', playerId);
-        return this.gameService.submitAnswer(playerId, { answer: action.answers }).pipe(
+        return this.gameService.submitAnswer(playerId, { awnsers: action.awnsers }).pipe(
           map((result: any) => GameActions.submitSuccess({ result })),
           tap(() =>  this.router.navigate(['/dashboard'], { replaceUrl: true })),
           catchError(error => of(GameActions.submitFailure({ error })))
