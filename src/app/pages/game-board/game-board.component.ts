@@ -65,6 +65,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.gameStateSubscription = this.game$.subscribe(gameState => {
        this.game = gameState
+       console.log(this.game, 'i am game state')
     });
     this.startTimer();
   }
@@ -135,6 +136,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       if (playerId) {
         // Dispatch an action to submit all answers
         const awnsers = Object.values(this.game.awnsers);
+        console.log(awnsers, 'i am awnsers')
         this.store.dispatch(GameActions.submitAnswers({ playerId, awnsers }));
         this.hasSubmittedGame = true;
   

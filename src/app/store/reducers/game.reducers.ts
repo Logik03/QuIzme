@@ -26,7 +26,7 @@ export const gameReducer = createReducer(
     ...state, 
     currentQuestionIndex: 0, 
     timeLeft: 60, 
-    answers: [] 
+    awnsers: [] 
   })),
   on(GameActions.loadQuestionsSuccess, (state, { questions }) => ({ 
     ...state, 
@@ -34,7 +34,7 @@ export const gameReducer = createReducer(
   })),
   on(GameActions.answerQuestion, (state, { awnser }) => ({
     ...state,
-    answers: [...state.awnsers, awnser],
+    awnsers: [...state.awnsers, awnser],
     currentQuestionIndex: state.currentQuestionIndex + 1,
   })),
   on(GameActions.submitAnswers, state => ({ 

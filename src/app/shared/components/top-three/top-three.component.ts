@@ -11,8 +11,8 @@ export class TopThreeComponent implements OnInit  {
 
   constructor() {}
   
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  ngOnInit() {
+    
   }
 
 }
