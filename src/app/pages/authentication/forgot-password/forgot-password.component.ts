@@ -17,7 +17,7 @@ export class ForgotPasswordComponent {
   hideConfirmPassword: boolean = true;
   hideLoginPassword: boolean = true;
   forgotPasswordFrom: FormGroup;
-  state: 'gettoken' | 'token' | 'success' = 'gettoken';
+  state: 'gettoken' | 'token' | 'success' | 'set-password' = 'gettoken';
   otp: string = '';
   constructor(
     private router: Router,
@@ -41,9 +41,6 @@ export class ForgotPasswordComponent {
   ngOnInit(): void {}
 
   forgotPassword() {
-    if (this.forgotPasswordFrom.invalid) {
-      return;
-    }
     this.auth
       .forgotPassword({
         email: this.forgotPasswordFrom.get('email')?.value,
