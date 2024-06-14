@@ -76,7 +76,7 @@ export class GameEffects {
       ofType(GameActions.submitAnswers),
       withLatestFrom(this.store.pipe(select(selectPlayerId))), // Combine the action with the latest player ID
       switchMap(([action, playerId]) => { 
-        console.log('Action:', action);
+        console.log('Action:', action.awnsers);
         console.log('Player ID:', playerId);
         return this.gameService.submitAnswer(playerId, { awnsers: action.awnsers }).pipe(
           map((result: any) => GameActions.submitSuccess({ result })),

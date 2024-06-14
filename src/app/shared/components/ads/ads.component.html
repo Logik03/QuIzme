@@ -11,5 +11,10 @@
         {{ countdown > 15 ? countdown : "Skip ad" }}
       </span>
     </div>
+    <div *ngIf="playerChances > 0" class="reward">
+      <span class="rew">
+        {{ countdown > 0 ? 'Rewards in: ' + countdown : '' }}
+      </span>
+    </div>
   </div>
 </ng-template>

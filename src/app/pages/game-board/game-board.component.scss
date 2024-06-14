@@ -77,9 +77,12 @@
         text-align: center;
       }
     }
+    
   }
 }
-
+.selected-option {
+  background-color: #039855 !important; /* Apply your green color here */
+}
 .header {
   padding-top: 60px;
   .count {
@@ -99,8 +102,8 @@
   }
 
   .timer {
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     padding: 23px 20px 22px 21px;
     border-radius: 50px;
     border: 5px solid #ffffff;
@@ -108,13 +111,31 @@
     position: relative;
     p {
       font-family: Inter;
-      font-size: 28px;
+      font-size: 45px;
       font-weight: 600;
       line-height: 60px;
       position: absolute;
-      right: 7px;
-      top: -4px;
+      right: 10px;
+      top: 10px;
       color: #fff;
+    }
+  }
+  .red-color {
+    width: 90px;
+    height: 90px;
+    padding: 23px 20px 22px 21px;
+    border-radius: 50px;
+    border: 5px solid #ffffff;
+    background: red;
+    position: relative;
+    animation: flash 1s infinite;
+  }
+  @keyframes flash {
+    0%, 100% {
+      opacity: 1; /* Fully visible */
+    }
+    50% {
+      opacity: 0.5; /* Partially visible */
     }
   }
 }

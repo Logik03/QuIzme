@@ -22,3 +22,16 @@ video {
     cursor: pointer;
   }
 }
+.reward {
+  position: absolute;
+  top: 17px;
+  //border: 2px solid #6949FF;
+  padding: 5px;
+  border-radius: 25px;
+
+  .rew {
+    color: #6949FF; /* Text color */
+    cursor: pointer;
+  }
+}
+

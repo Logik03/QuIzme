@@ -180,9 +180,6 @@ export class OverviewComponent implements OnInit {
 
   showAdThenStartGame(payload: { playerId: string }) {
     const modalRef = this.modalService.open(AdvertComponent, { backdrop: 'static', keyboard: false });
-    /* modalRef.componentInstance.onAdDismissed.subscribe(() => {
-      this.store.dispatch(startGame({ payload }));
-    }); */
   }
 
   play() {

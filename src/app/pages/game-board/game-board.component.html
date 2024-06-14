@@ -8,9 +8,9 @@
       </p>
     </div>
     <div>
-      <div class="timer">
-        <p>{{ timer }}</p>
-      </div>
+    <div [ngClass]="{ 'timer': true, 'red-color': timer <= 10 }">
+      <p>{{ timer }}</p>
+    </div>
     </div>
   </div>
   <div class="game-board" *ngIf="game.questions[currentQuestionIndex]">
@@ -22,30 +22,15 @@
 
     <div class="mt-5">
       <div class="row">
-        <div
-          *ngFor="
-            let item of game.questions[currentQuestionIndex].options;
-            let i = index
-          "
-          [ngClass]="
-            getColClass(game.questions[currentQuestionIndex].options.length, i)
-          "
+        <div *ngFor="let item of game.questions[currentQuestionIndex].options;let i = index"[ngClass]="getColClass(game.questions[currentQuestionIndex].options.length, i)"
           (click)="selectOption(item)"
+          [class.disabled]="answerSelected"
         >
           <div class="answer">
             <div>
-              <p>{{ item }}</p>
+              <p style="font-size: larger;">{{ item }}</p>
             </div>
-            <div
-              class="check"
-              [ngStyle]="{
-                backgroundColor:
-                  checkIfSelectedOption(
-                    item,
-                    game.questions[currentQuestionIndex].id
-                  ) && '#039855'
-              }"
-            >
+            <div class="check" [ngStyle]="{backgroundColor:checkIfSelectedOption(item,game.questions[currentQuestionIndex].id) && '#039855'}">
               <img src="../../../assets/imgs/check.svg" alt="" />
             </div>
           </div>

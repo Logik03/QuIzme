@@ -15,6 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AdvertComponent {
   playerState$: any;
   playerStateSubscription: any;
+  playerChances! : number;
 
   constructor(  
     private store: Store<AppState>,
@@ -22,6 +23,10 @@ export class AdvertComponent {
     private activeModal: NgbActiveModal,
   ) {
     this.playerState$ = this.store.pipe(select('playerState'));
+    this.playerState$.subscribe((state: any) => {
+      console.log(state, 'i am state on ad page')
+      this.playerChances = state.chancesLeft
+    });
     
     }
 

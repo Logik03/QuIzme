@@ -11,6 +11,7 @@ import * as GameActions from '../../store/actions/game.actions';
 import { IAnswer } from '../../core/models/user';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdvertComponent } from '../dashboard/advert/advert.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-board',
@@ -36,10 +37,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private gameStateSubscription!: Subscription;
   private playerStateSubscription!: Subscription;
   gameQuestions: any;
+  answerSelected: boolean = false;
 
   constructor(
     private gameService: GameService,
     private modalService: NgbModal,
+    private router: Router,
     private store: Store<{ game: GameState; player: PlayerState }>
   ) {
     this.game$ = this.store.pipe(select(selectGameState));
@@ -65,8 +68,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.gameStateSubscription = this.game$.subscribe(gameState => {
        this.game = gameState
+       console.log(this.game, 'i am game state')
     });
-    this.startTimer();
+    if(this.game) {
+      this.startTimer();
+    }
+    
   }
   startAdTimer(): void {
     this.adTimer = 30;
@@ -112,17 +119,25 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         awnser: option
       };
       this.store.dispatch(GameActions.answerQuestion({ awnser }));
+      this.answerSelected = true; 
+      // Add the answer to the local state for immediate UI update
+    this.awnsers.push(awnser);
+
+    // Move to the next question after a brief delay (e.g., 500ms)
+    setTimeout(() => {
       this.nextQuestion();
-    }
+    }, 500); // Adjust the delay as needed
+   }
   }
 
   
 
   nextQuestion(): void {
+    this.answerSelected = false;
     if (this.currentQuestionIndex < this.game.questions.length - 1) {
       this.currentQuestionIndex++;
     } else {
-      //this.submitAnswers();
+      this.submitAnswers();
     }
   }
 
@@ -135,13 +150,10 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       if (playerId) {
         // Dispatch an action to submit all answers
         const awnsers = Object.values(this.game.awnsers);
+        console.log(awnsers, 'i am awnsers')
         this.store.dispatch(GameActions.submitAnswers({ playerId, awnsers }));
         this.hasSubmittedGame = true;
-  
-        // Check if the player has used their free game and show an interstitial ad if not
-        if (!state.freeGameUsed) {
-          this.showInterstitialAd();
-        }
+        this.showInterstitialAd();
       } else {
         console.error('Player ID is not available');
       }
@@ -149,8 +161,16 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   }
 
   showInterstitialAd(): void {
-    // Logic to show interstitial ad
-    console.log('showing interstitial ad!!!')
+    const modalRef = this.modalService.open(AdvertComponent, { backdrop: 'static', keyboard: false });
+
+  modalRef.componentInstance.adDismissed.subscribe(() => {
+    // Navigate back to the dashboard after the ad is dismissed
+    this.router.navigate(['/dashboard'], { replaceUrl: true });
+  });
+
+  modalRef.result.catch((error) => {
+    console.log('Ad modal was closed:', error);
+  });
   }
 
   /* getQuestions() {
@@ -253,5 +273,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         return a.questionId == id && option == a.awnser;
       }).length > 0
     );
+  }
+  getTimerClasses() {
+    return {
+      'red-color': this.timer <= 10,
+      'timer': this.timer < 10
+    };
   }
 }
