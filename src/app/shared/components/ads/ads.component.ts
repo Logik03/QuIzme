@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -15,6 +16,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class AdsComponent implements OnInit {
   @ViewChild('content', { static: true }) content: any;
   @Output() adDismissed = new EventEmitter<void>();
+  @Input() playerChances!: number;
 
   canSkip = false;
   countdown = 30;
