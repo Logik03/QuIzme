@@ -7,7 +7,7 @@ import { PlayerState } from '../../../store/reducers/player.reducers';
 import { startGame } from '../../../store/actions/game.actions';
 import { useFreeGame } from '../../../store/actions/player.actions';
 import { AppState } from '../../../store/app.states';
-import { IUserData } from '../../../core/models/user';
+import { ISubmissionResult, IUserData } from '../../../core/models/user';
 import { selectUser } from '../../../store/selectors/auth.selectors';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdvertComponent } from '../advert/advert.component';
@@ -126,6 +126,7 @@ export class OverviewComponent implements OnInit {
   user$!: Observable<IUserData | null>;
   buttonText: string = 'Play Now';
   active = 1;
+  playerScore: any;
 
   constructor(
     private route: Router,  
@@ -146,6 +147,13 @@ export class OverviewComponent implements OnInit {
     this.user$ = this.store.pipe(select(selectUser));
     this.user$.subscribe((user) => {
       this.getPlayerHistory(user?.id || '');
+    });
+    
+    this.gameState$.subscribe((state) => {
+      const result = state.submissionResult as ISubmissionResult;
+      if (result?.data?.actual_game_score !== undefined) {
+        this.playerScore = result.data.actual_game_score;
+      }
     });
     this.cd.detectChanges();
   }
@@ -195,6 +203,15 @@ export class OverviewComponent implements OnInit {
             started_at: new Date(data.started_at).toLocaleDateString(),
           };
         });
+        const sortedHistory = [...this.player_history].sort((a, b) => {
+          return new Date(b.started_at).getTime() - new Date(a.started_at).getTime();
+        });
+        // Log the sorted array to verify the sorting order
+        console.log('Sorted Player History:', sortedHistory);
+        // If playerScore is not set from game state, set it from the most recent player history
+        if (!this.playerScore && sortedHistory.length > 0) {
+          this.playerScore = sortedHistory[sortedHistory.length - 1].game_score || 0;
+        }
       },
     });
   }
@@ -203,8 +220,8 @@ export class OverviewComponent implements OnInit {
     this.wantsToPlay = false;
     this.route.navigate(['/dashboard/game']);
   } */
-  onAdDismissed() {
+  /* onAdDismissed() {
     this.store.dispatch(useFreeGame());
     this.router.navigate(['/dashboard']);
-  }
+  } */
 }

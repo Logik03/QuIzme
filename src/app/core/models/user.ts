@@ -94,10 +94,15 @@ export interface IAnswer {
   questionId: string;
   awnser: string;
 }
+export interface ISubmissionResultData {
+  overall_score_pertime: number;
+  actual_game_score: number;
+}
 export interface ISubmissionResult {
   _id: string;
   content: string;
   options: [];
   __v: string;
   id: string;
+  data: ISubmissionResultData;
 }

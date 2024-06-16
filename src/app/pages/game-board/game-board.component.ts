@@ -153,24 +153,42 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         console.log(awnsers, 'i am awnsers')
         this.store.dispatch(GameActions.submitAnswers({ playerId, awnsers }));
         this.hasSubmittedGame = true;
-        this.showInterstitialAd();
+        this.showInterstitialAd('interstitial');
       } else {
         console.error('Player ID is not available');
       }
     });
   }
 
-  showInterstitialAd(): void {
-    const modalRef = this.modalService.open(AdvertComponent, { backdrop: 'static', keyboard: false });
+  showInterstitialAd(type : string): void {
+    const modalRef = this.modalService.open(AdvertComponent, { 
+      backdrop: 'static', 
+      keyboard: false,
+    });
+    modalRef.componentInstance.adType = type;
 
-  modalRef.componentInstance.adDismissed.subscribe(() => {
-    // Navigate back to the dashboard after the ad is dismissed
-    this.router.navigate(['/dashboard'], { replaceUrl: true });
-  });
+    /* modalRef.componentInstance.adDismissed.subscribe(() => {
+      // Navigate back to the dashboard after the ad is dismissed
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
+    }); */
 
-  modalRef.result.catch((error) => {
-    console.log('Ad modal was closed:', error);
-  });
+    modalRef.componentInstance.adDismissed.subscribe((reason: string) => this.handleAdDismissed(reason));
+
+    modalRef.result.catch((error) => {
+      console.log('Ad modal was closed:', error);
+    });
+  }
+
+  handleAdDismissed(reason: string): void {
+    console.log('Ad dismissed:', reason);
+    // Perform additional actions based on the reason
+    if (reason === 'Skipped') {
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
+    } else if (reason === 'Completed') {
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
+    } else if (reason === 'Viewed Score') {
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
+    }
   }
 
   /* getQuestions() {
