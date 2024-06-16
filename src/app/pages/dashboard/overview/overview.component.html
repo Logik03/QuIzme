@@ -52,8 +52,23 @@
   </div>
 
   <div class="section">
-    <p class="sec-title">Leaderboard</p>
-        <app-top-three></app-top-three>
+    <div class="leaderboard-header">
+      <p class="sec-title">Leaderboard</p>
+      <div class="player-score-container">
+        <div class="score-background">
+          <p class="player-score">
+            <img src="../../../assets/icons/av-1.svg" alt="Star Icon" class="star-icon" />
+            <span class="score-label">Recent Score:</span> {{ playerScore }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- <p class="sec-title">Leaderboard</p>
+    <p class="player-score">
+      <img src="../../../assets/icons/wallet.svg" alt="Wallet Icon" class="wallet-icon" />
+      {{ 688 }} Points
+    </p> -->
+    <app-top-three></app-top-three>
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-5">
       <li [ngbNavItem]="1">
         <button ngbNavLink>Global Leaderboard</button>

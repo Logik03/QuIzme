@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AppState } from '../../../store/app.states';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { useFreeGame } from '../../../store/actions/player.actions';
+import { resetPlayerState, useFreeGame } from '../../../store/actions/player.actions';
 import { startGame } from '../../../store/actions/game.actions';
-import { take } from 'rxjs';
+import { Observable, Subscription, combineLatest, take } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -13,32 +13,62 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './advert.component.scss'
 })
 export class AdvertComponent {
-  playerState$: any;
+  playerState$: Observable<any>;
+  gameState$: Observable<any>;
+  combinedSubscription!: Subscription;
+  playerChances!: number;
+  @Input() adType!: string;
+  isSubmitting!: boolean;
+  //playerState$: any;
+  //gameState$: any;
   playerStateSubscription: any;
-  playerChances! : number;
+  //gameStateSubscription: any;
+  //playerChances! : number;
+  //@Input() adType!: string;
 
   constructor(  
     private store: Store<AppState>,
     private router: Router,
     private activeModal: NgbActiveModal,
   ) {
+    
+
     this.playerState$ = this.store.pipe(select('playerState'));
-    this.playerState$.subscribe((state: any) => {
-      console.log(state, 'i am state on ad page')
-      this.playerChances = state.chancesLeft
-    });
+    this.gameState$ = this.store.pipe(select('gameState'));
+
+    this.combinedSubscription = combineLatest([this.playerState$, this.gameState$]).subscribe(
+      ([playerState, gameState]) => {
+        console.log(playerState, 'i am state on ad page');
+        console.log(gameState, 'i am game state on ad page');
+        
+        this.playerChances = playerState.chancesLeft;
+        this.isSubmitting = gameState.isSubmitting;
+      }
+    );
+    
     
     }
 
 
-  onAdDismissed() {
+  onAdDismissed(reason: string) {
     this.playerStateSubscription = this.playerState$.pipe(
       take(1) // Unsubscribe after the first emission
     ).subscribe((player: any) => {
-      //console.log(player, 'I am the current player');
-        const payload = { playerId: player.playerId };
-        this.store.dispatch(startGame({payload}));
-        this.activeModal.close();
+      console.log(player, 'I am the current player ! -------------!');
+      console.log(reason, 'Ad dismissed reason!!');
+      const payload = { playerId: player.playerId };
+      if(reason === 'reward' ) {
+        this.store.dispatch(resetPlayerState())
+      }else if (reason === 'skipped') {
+        // Handle the logic for skipping the ad
+        //this.store.dispatch(startGame({ payload: player.playerId }));
+      } else if (reason === 'calculate player score') {
+        
+        // Handle the logic for viewing the score
+        // dispatch appropriate action here
+      }
+
+      this.activeModal.close();
     });
 
   }

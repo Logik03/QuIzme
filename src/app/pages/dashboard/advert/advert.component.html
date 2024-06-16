@@ -1,1 +1,7 @@
-<app-ads (adDismissed)="onAdDismissed()" [playerChances]="playerChances"></app-ads>
+<app-ads 
+    (adDismissed)="onAdDismissed($event)" 
+    [playerChances]="playerChances"
+    [gameState]="gameState$"
+    [adType]="adType"
+    >
+</app-ads>
