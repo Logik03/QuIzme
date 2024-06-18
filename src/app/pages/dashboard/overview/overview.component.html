@@ -12,7 +12,7 @@
           </div>
         </div>
         <ng-container *ngIf="playerState$ | async as playerState">
-          <button class="btn-1" (click)="onPlayNow()" [disabled]="playerState.chancesLeft <= 0">
+          <button class="btn-1" (click)="onPlayNow()" [disabled]="playerState.chancesLeft == playerState.no_of_plays - 1">
             {{ playerState.freeGameUsed ? 'Watch Ad to play' : 'Play Now' }}
           </button>
          </ng-container> 
@@ -54,7 +54,7 @@
   <div class="section">
     <div class="leaderboard-header">
       <p class="sec-title">Leaderboard</p>
-      <div class="player-score-container">
+      <div *ngIf="playerScore != null" class="player-score-container">
         <div class="score-background">
           <p class="player-score">
             <img src="../../../assets/icons/av-1.svg" alt="Star Icon" class="star-icon" />

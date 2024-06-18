@@ -20,6 +20,8 @@ export class InterestComponentComponent implements OnInit {
   @Output() selectionChange = new EventEmitter<Interest[]>();
 
   interestSelected: boolean = false;
+  newInterest: string = '';
+  showAddCustom: boolean = false;
   constructor(private notification: NotificationService, private store : Store, private router : Router) {}
   
   
@@ -55,4 +57,19 @@ export class InterestComponentComponent implements OnInit {
     const interestNames = selectedInterests.map(interest => interest.name);
     this.store.dispatch(selectInterests({ payload: { interest: interestNames} }));
   }
+  toggleAddCustom() {
+    this.showAddCustom = !this.showAddCustom;
+  }
+  addCustomInterest() {
+    if (this.newInterest.trim()) {
+      const newInterest: Interest = { name: this.newInterest.trim(), selected: false };
+      this.interests.push(newInterest);
+      this.newInterest = '';
+      this.showAddCustom = false;
+    } else {
+      this.notification.error('Interest name cannot be empty');
+    }
+  }
+
+  
 }

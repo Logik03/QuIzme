@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AppState } from '../../../store/app.states';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { resetPlayerState, useFreeGame } from '../../../store/actions/player.actions';
+import { activateReward, resetPlayerState, useFreeGame } from '../../../store/actions/player.actions';
 import { startGame } from '../../../store/actions/game.actions';
 import { Observable, Subscription, combineLatest, take } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -58,7 +58,7 @@ export class AdvertComponent {
       console.log(reason, 'Ad dismissed reason!!');
       const payload = { playerId: player.playerId };
       if(reason === 'reward' ) {
-        this.store.dispatch(resetPlayerState())
+        this.store.dispatch(activateReward())
       }else if (reason === 'skipped') {
         // Handle the logic for skipping the ad
         //this.store.dispatch(startGame({ payload: player.playerId }));
