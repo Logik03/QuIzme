@@ -126,7 +126,7 @@ export class OverviewComponent implements OnInit {
   user$!: Observable<IUserData | null>;
   buttonText: string = 'Play Now';
   active = 1;
-  playerScore: any;
+  playerScore!: number;
 
   constructor(
     private route: Router,  
@@ -153,6 +153,7 @@ export class OverviewComponent implements OnInit {
       const result = state.submissionResult as ISubmissionResult;
       if (result?.data?.actual_game_score !== undefined) {
         this.playerScore = result.data.actual_game_score;
+        console.log(this.playerScore, 'i am the player score')
       }
     });
     this.cd.detectChanges();
@@ -211,6 +212,7 @@ export class OverviewComponent implements OnInit {
         // If playerScore is not set from game state, set it from the most recent player history
         if (!this.playerScore && sortedHistory.length > 0) {
           this.playerScore = sortedHistory[sortedHistory.length - 1].game_score || 0;
+          console.log(this.playerScore, 'player score using getHistory')
         }
       },
     });
