@@ -29,11 +29,18 @@ h2 {
   border-radius: 10px;
   padding: 20px;
   cursor: pointer;
+  position: relative;
   transition: background-color 0.3s, border-color 0.3s;
+  word-wrap: break-word;  // Ensure long text wraps within the container
 
-  i {
-    font-size: 36px;
-    margin-bottom: 10px;
+  img {
+    width: 36px;  // Adjust size if necessary
+    height: 36px; // Adjust size if necessary
+  }
+
+  span {
+    margin-top: 10px;
+    text-align: center;
   }
 
   &.selected {
@@ -43,14 +50,73 @@ h2 {
   }
 }
 
+.custom-interest-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // Ensure the "x" button is aligned to the right
+  padding: 20px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+
+    img {
+      width: 36px;  // Adjust size if necessary
+      height: 36px; // Adjust size if necessary
+    }
+
+    .custom-interest-name {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+  }
+}
+
+.remove-button {
+  background: #ff1744;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #d50000;
+  }
+}
+
 .add-interest {
-  i {
-    font-size: 36px;
-    color: #6200ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E4EB;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+
+  img {
+    width: 36px;  // Adjust size if necessary
+    height: 36px; // Adjust size if necessary
   }
 
   span {
-    color: #6200ea;
+    margin-top: 10px;
+    text-align: center;
   }
 
   &:hover {

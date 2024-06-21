@@ -5,7 +5,8 @@ import { Store, select } from '@ngrx/store';
 import { activateReward, resetPlayerState, useFreeGame } from '../../../store/actions/player.actions';
 import { startGame } from '../../../store/actions/game.actions';
 import { Observable, Subscription, combineLatest, take } from 'rxjs';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewScoreComponent } from '../../../shared/components/view-score/view-score.component';
 
 @Component({
   selector: 'app-advert',
@@ -22,6 +23,7 @@ export class AdvertComponent {
   //playerState$: any;
   //gameState$: any;
   playerStateSubscription: any;
+  private isModalOpen = false;
   //gameStateSubscription: any;
   //playerChances! : number;
   //@Input() adType!: string;
@@ -30,6 +32,7 @@ export class AdvertComponent {
     private store: Store<AppState>,
     private router: Router,
     private activeModal: NgbActiveModal,
+    private modalService: NgbModal,
   ) {
     
 
@@ -51,6 +54,11 @@ export class AdvertComponent {
 
 
   onAdDismissed(reason: string) {
+    if (this.isModalOpen) {
+      return;
+    }
+  
+    this.isModalOpen = true;
     this.playerStateSubscription = this.playerState$.pipe(
       take(1) // Unsubscribe after the first emission
     ).subscribe((player: any) => {
@@ -63,13 +71,18 @@ export class AdvertComponent {
         // Handle the logic for skipping the ad
         //this.store.dispatch(startGame({ payload: player.playerId }));
       } else if (reason === 'calculate player score') {
-        
+        this.showPlayerScoreModal();
         // Handle the logic for viewing the score
         // dispatch appropriate action here
       }
 
       this.activeModal.close();
+      this.isModalOpen = false;
     });
 
   }
+  showPlayerScoreModal() {
+    const modalRef = this.modalService.open(ViewScoreComponent , { backdrop: 'static', keyboard: false });
+  }
+
 }

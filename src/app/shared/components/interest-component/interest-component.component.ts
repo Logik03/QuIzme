@@ -22,6 +22,7 @@ export class InterestComponentComponent implements OnInit {
   interestSelected: boolean = false;
   newInterest: string = '';
   showAddCustom: boolean = false;
+  customInterests: Interest[] = [];
   constructor(private notification: NotificationService, private store : Store, private router : Router) {}
   
   
@@ -30,19 +31,39 @@ export class InterestComponentComponent implements OnInit {
   }
 
   toggleSelection(interest: Interest) {
-    const selectedCount = this.interests.filter(i => i.selected).length;
+    console.log('im being toggled')
+    const selectedCount = this.selectedInterestsCount();
 
     if (!interest.selected && selectedCount >= 10) {
       this.notification.error('You can select 10 interests only');
     } else {
       interest.selected = !interest.selected;
-      //this.selectionChange.emit(this.interests);
       this.updateInterestSelected();
     }
   }
 
+  toggleAddCustom() {
+    this.showAddCustom = !this.showAddCustom;
+  }
+
+  addCustomInterest() {
+    if (this.newInterest) {
+      const newCustomInterest: Interest = { name: this.newInterest, selected: false };
+      this.customInterests.push(newCustomInterest);
+      this.newInterest = '';
+      this.showAddCustom = false;
+      this.updateInterestSelected();
+    }
+  }
+
+  removeCustomInterest(interest: Interest) {
+    this.customInterests = this.customInterests.filter(i => i !== interest);
+    this.updateInterestSelected();
+  }
+
   selectedInterestsCount(): number {
-    return this.interests.filter(interest => interest.selected).length;
+    return this.interests.filter(interest => interest.selected).length + 
+           this.customInterests.filter(interest => interest.selected).length;
   }
 
   updateInterestSelected() {
@@ -50,26 +71,14 @@ export class InterestComponentComponent implements OnInit {
     this.interestSelected = count >= 5 && count <= 10;
   }
 
-
   continue() {
-    const selectedInterests = this.interests.filter(interest => interest.selected);
+    const selectedInterests = [
+      ...this.interests.filter(interest => interest.selected),
+      ...this.customInterests.filter(interest => interest.selected)
+    ];
     this.selectionChange.emit(selectedInterests);
     const interestNames = selectedInterests.map(interest => interest.name);
-    this.store.dispatch(selectInterests({ payload: { interest: interestNames} }));
+    this.store.dispatch(selectInterests({ payload: { interest: interestNames } }));
   }
-  toggleAddCustom() {
-    this.showAddCustom = !this.showAddCustom;
-  }
-  addCustomInterest() {
-    if (this.newInterest.trim()) {
-      const newInterest: Interest = { name: this.newInterest.trim(), selected: false };
-      this.interests.push(newInterest);
-      this.newInterest = '';
-      this.showAddCustom = false;
-    } else {
-      this.notification.error('Interest name cannot be empty');
-    }
-  }
-
   
 }
