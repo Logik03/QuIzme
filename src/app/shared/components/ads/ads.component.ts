@@ -86,8 +86,8 @@ export class AdsComponent implements OnInit {
   }
 
   close(reason: string) {
-    this.modalRef.close();
-    this.adDismissed.emit(reason);
+      this.modalRef.close();
+      this.adDismissed.emit(reason);
   }
 
   closeAd(reason: string): void {
@@ -111,4 +111,5 @@ export class AdsComponent implements OnInit {
     this.closeAd('Viewed Score');
     // Navigate to the score view or perform another action
   }
+  
 }

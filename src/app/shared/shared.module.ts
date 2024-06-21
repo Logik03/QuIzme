@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TopThreeComponent } from './components/top-three/top-three.component';
 import { TopTenComponent } from './components/top-ten/top-ten.component';
 import { FormsModule } from '@angular/forms';
+import { ViewScoreComponent } from './components/view-score/view-score.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdsComponent,
     TopThreeComponent,
     TopTenComponent,
+    ViewScoreComponent,
   ],
   imports: [
     CommonModule,
