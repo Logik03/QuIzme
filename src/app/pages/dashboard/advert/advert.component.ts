@@ -71,7 +71,7 @@ export class AdvertComponent {
         // Handle the logic for skipping the ad
         //this.store.dispatch(startGame({ payload: player.playerId }));
       } else if (reason === 'calculate player score') {
-        this.showPlayerScoreModal();
+        //this.showPlayerScoreModal();
         // Handle the logic for viewing the score
         // dispatch appropriate action here
       }
