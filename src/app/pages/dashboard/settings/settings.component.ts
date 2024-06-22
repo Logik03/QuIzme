@@ -264,7 +264,7 @@ export class SettingsComponent implements OnInit {
           email: user?.email,
         });
         this.form.patchValue({
-          fullname: user?.fullname,
+          fullname: user?.fullName,
           email: user?.email,
           phone_number: user?.phone_number,
           country: user?.country,

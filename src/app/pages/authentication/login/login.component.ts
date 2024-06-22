@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     })
     this.signUpForm = this.fb.group(
       {
-        fullname: ['', [Validators.required]],
+        fullName: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         terms: [false, [Validators.requiredTrue]], 
         username: ['', [Validators.required]],
@@ -89,8 +89,8 @@ export class LoginComponent implements OnInit {
     if (this.signUpForm.invalid) {
       return;
     } 
-     const { email, password, username, fullname } = this.signUpForm.value;
-     this.store.dispatch(signup({ payload: { email, password, fullname, username } }));
+     const { email, password, username, fullName } = this.signUpForm.value;
+     this.store.dispatch(signup({ payload: { email, password, fullName, username } }));
   }
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;

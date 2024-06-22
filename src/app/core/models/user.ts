@@ -26,7 +26,7 @@ export interface IUserResponse {
 export interface IUserData {
   email?: string;
   username?: string;
-  fullname?: string;
+  fullName?: string;
   interests?: string[];
   id?: string;
   country?: string;
@@ -55,7 +55,7 @@ export interface IResetPasswordModel {
 
 export interface ISignupModel {
   email: string;
-  fullname: string;
+  fullName: string;
   password: string;
   username: string;
 }

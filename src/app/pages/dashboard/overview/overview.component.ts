@@ -139,6 +139,7 @@ export class OverviewComponent implements OnInit {
       
     }
   ngOnInit(){
+    this.startCountdown();
     this.gameState$ = this.store.pipe(select('gameState'));
     this.playerState$ = this.store.pipe(select('playerState'));
     this.playerState$.subscribe(state => {
@@ -216,6 +217,28 @@ export class OverviewComponent implements OnInit {
         }
       },
     });
+  }
+  startCountdown() {
+    this.updateCountdown();
+    setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
+  }
+
+  updateCountdown() {
+    const now = new Date();
+    const nextMidnight = new Date();
+    nextMidnight.setHours(24, 0, 0, 0); // Set to next midnight
+
+    const timeDifference = nextMidnight.getTime() - now.getTime();
+
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    document.getElementById('hours')!.innerText = hours.toString();
+    document.getElementById('minutes')!.innerText = minutes.toString();
+    document.getElementById('seconds')!.innerText = seconds.toString();
   }
 
   /* onAdDismissed(event: any) {
