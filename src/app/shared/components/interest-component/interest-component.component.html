@@ -33,12 +33,13 @@
     </div>
 
     <!-- Custom Interests -->
-    <div *ngFor="let customInterest of customInterests" class="interest-item" [class.selected]="customInterest.selected">
-      <div (click)="toggleSelection(customInterest)">
+    <div *ngFor="let customInterest of customInterests" class="custom-interest-grid" >
+      <div (click)="toggleSelection(customInterest)" class="custom-interest-item" [class.selected]="customInterest.selected">
+        <button class="remove-button" (click)="removeCustomInterest(customInterest); $event.stopPropagation();">x</button>
         <img src="/assets/icons/checked_bag.svg">
         <span class="custom-interest-name">{{ customInterest.name }}</span>
       </div>
-      <button class="remove-button" (click)="removeCustomInterest(customInterest); $event.stopPropagation();">x</button>
+      
     </div>
 
     <!-- Add Custom Interest -->
