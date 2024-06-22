@@ -24,11 +24,18 @@ export interface IUserResponse {
 }
 
 export interface IUserData {
-  email: string;
-  username: string;
-  fullname: string;
-  interests: string[];
-  id: string;
+  email?: string;
+  username?: string;
+  fullname?: string;
+  interests?: string[];
+  id?: string;
+  country?: string;
+  zip_code?: string;
+  address?: string;
+  state?: string;
+  gender?: string;
+  phone_number?: string;
+  avatar?: string
 }
 
 export interface ISigninModel {

@@ -48,6 +48,7 @@
     padding: 2px 12px 2px 12px;
     border-radius: 8px;
     border: 0.5px solid #d3d0d6;
+    cursor: pointer;
     .name {
       font-family: Inter;
       font-size: 16px;
@@ -101,4 +102,15 @@
   .tab-con {
     width: 20% !important;
   }
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  display: none;
+}
+.dropdown-menu.show {
+  display: block;
 }

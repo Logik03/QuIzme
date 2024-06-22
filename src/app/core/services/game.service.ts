@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResponse, ISubmitAnswer } from '../models/game';
+import { IUserData } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +26,23 @@ export class GameService {
 
   getPlayer(payload: any): Observable<IResponse> {
     return this.http.post<IResponse>(this.baseUrl + `/game/end`, payload);
+  }
+
+  updateProfile(payload: IUserData): Observable<IResponse> {
+    return this.http.patch<IResponse>(
+      this.baseUrl +
+        `/user/update-profile
+    `,
+      payload
+    );
+  }
+
+  uploadImage(image: File): Observable<IResponse> {
+    const formData = new FormData();
+    formData.append('image', image);
+    return this.http.post<IResponse>(
+      this.baseUrl + `/user/upload-file`,
+      formData
+    );
   }
 }

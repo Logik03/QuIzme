@@ -15,10 +15,19 @@
     <div *ngIf="tab == 'profile'">
       <div class="d-flex gap-4 align-items-center">
         <div>
-          <div class="avatar"></div>
+          <div
+            class="avatar"
+            [style.background]="'url(' + userData.avatar + ')'"
+          ></div>
         </div>
         <div>
-          <button class="change">Change Avatar</button>
+          <button class="change" (click)="chooseAvatar()">Change Avatar</button>
+          <input
+            type="file"
+            style="visibility: hidden; width: 0px"
+            (change)="selectAvatar($event)"
+            id="chooseAvatar"
+          />
         </div>
         <div>
           <button class="delete">Delete</button>
@@ -26,47 +35,47 @@
       </div>
 
       <div class="mt-5">
-        <form class="row gy-4">
+        <form [formGroup]="form" (ngSubmit)="updateProfile()" class="row gy-4">
           <div class="form-group col-lg-12">
-            <label>Full name </label>
+            <label>Full name</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control quiz-input"
-                value="Israel Adegbulugbe"
+                formControlName="fullname"
               />
             </div>
             <span class="message">E.g firstname before lastname</span>
           </div>
+
           <div class="form-group col-lg-12">
-            <label>Email </label>
+            <label>Email</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control quiz-input"
-                value="adegbulugbeisrael@gmail.com"
+                formControlName="email"
+                readonly
               />
             </div>
           </div>
+
           <div class="form-group col-lg-12">
-            <label>Phone Number </label>
+            <label>Phone Number</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control quiz-input"
-                value="+1 231-231-2312"
+                formControlName="phone_number"
               />
             </div>
           </div>
+
           <div class="form-group col-lg-12 position-relative">
-            <label>Country </label>
+            <label>Country</label>
             <div class="input-group">
-              <select type="text" class="form-control quiz-input">
-                <option
-                  *ngFor="let country of countries"
-                  [value]="country"
-                  selected
-                >
+              <select class="form-control quiz-input" formControlName="country">
+                <option *ngFor="let country of countries" [value]="country">
                   {{ country }}
                 </option>
               </select>
@@ -77,46 +86,51 @@
               alt=""
             />
           </div>
+
           <div class="form-group col-lg-6">
-            <label>State </label>
+            <label>State</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control quiz-input"
-                value="Texas"
+                formControlName="state"
               />
             </div>
           </div>
+
           <div class="form-group col-lg-6">
-            <label>ZIP Code </label>
+            <label>ZIP Code</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control quiz-input"
-                value="100889"
+                formControlName="zip_code"
               />
             </div>
           </div>
+
           <div class="form-group col-lg-12">
             <label>Address</label>
             <div class="input-group">
               <textarea
                 type="text"
                 class="form-control quiz-input"
+                formControlName="address"
                 style="height: 76px !important"
-              >
-Texas, Dallas</textarea
-              >
+              ></textarea>
             </div>
           </div>
+
           <div class="form-group col-lg-12">
-            <label>Gender </label>
+            <label>Gender</label>
             <div class="row justify-content-between">
               <div class="col-lg-6 col-6">
                 <div
                   class="custom-radio d-flex gap-2"
-                  [ngClass]="{ unchecked: gender != 'male' }"
-                  (click)="gender = 'male'"
+                  [ngClass]="{ unchecked: form.get('gender')?.value != 'male' }"
+                  (click)="
+                    gender = 'male'; form.get('gender')?.setValue('male')
+                  "
                 >
                   <div>
                     <img
@@ -127,7 +141,7 @@ Texas, Dallas</textarea
                     <img
                       src="../../../../assets/icons/RadioUnchecked.svg"
                       alt=""
-                      *ngIf="gender === 'female'"
+                      *ngIf="gender !== 'male'"
                     />
                   </div>
                   <div><p>Male</p></div>
@@ -136,8 +150,12 @@ Texas, Dallas</textarea
               <div class="col-lg-6 col-6">
                 <div
                   class="custom-radio d-flex gap-2"
-                  (click)="gender = 'female'"
-                  [ngClass]="{ unchecked: gender != 'female' }"
+                  [ngClass]="{
+                    unchecked: form.get('gender')?.value != 'female'
+                  }"
+                  (click)="
+                    gender = 'female'; form.get('gender')?.setValue('female')
+                  "
                 >
                   <div>
                     <img
@@ -148,7 +166,7 @@ Texas, Dallas</textarea
                     <img
                       src="../../../../assets/icons/RadioUnchecked.svg"
                       alt=""
-                      *ngIf="gender === 'male'"
+                      *ngIf="gender !== 'female'"
                     />
                   </div>
                   <div><p>Female</p></div>
@@ -158,50 +176,172 @@ Texas, Dallas</textarea
           </div>
 
           <div>
-            <button class="submit">Save</button>
+            <button type="submit" class="submit">Save</button>
           </div>
         </form>
       </div>
     </div>
 
     <div *ngIf="tab == 'password'">
-      <div class="mt-5">
-        <form class="row gy-4">
-          <div class="form-group col-lg-12">
-            <label>Current Password </label>
+      <div
+        class="login-container bg-white shadow p-5 mt-2"
+      >
+        <form
+          class="row gy-4"
+          [formGroup]="forgotPasswordFrom"
+          *ngIf="state == 'set-password'"
+        >
+          <div class="form-group" style="margin-top: 20px">
+            <label>New Password<span class="required">*</span></label>
             <div class="input-group">
               <input
-                type="password"
+                type="{{ hidePassword ? 'password' : 'text' }}"
                 class="form-control quiz-input"
-                value="90mdownidon393"
+                formControlName="password"
+                [ngClass]="{
+                  'invalid-input':
+                    forgotPasswordFrom.get('password')!.invalid &&
+                    forgotPasswordFrom.get('password')!.touched
+                }"
               />
+              <div class="icon-container">
+                <svg
+                  class="eye-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <!-- Conditionally render bi-eye or bi-eye-slash path -->
+                  <ng-container *ngIf="hidePassword">
+                    <path
+                      d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"
+                    />
+                    <path
+                      d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"
+                    />
+                    <path
+                      d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"
+                    />
+                  </ng-container>
+                  <ng-container *ngIf="!hidePassword">
+                    <path
+                      d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
+                    />
+                    <path
+                      d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
+                    />
+                  </ng-container>
+                </svg>
+              </div>
+              <!-- <i class="bi" [ngClass]="isPasswordVisible ? 'bi-eye' : 'bi-eye-slash'" id="togglePassword" (click)="togglePasswordVisibility()"></i> -->
             </div>
           </div>
-          <div class="form-group col-lg-12">
-            <label>New Password </label>
+
+          <div class="form-group">
+            <label>Confirm New Password<span class="required">*</span></label>
             <div class="input-group">
               <input
-                type="password"
+                type="{{ hideConfirmPassword ? 'password' : 'text' }}"
                 class="form-control quiz-input"
-                value="90mdownidon393"
+                formControlName="confirm_password"
+                [ngClass]="{
+                  'invalid-input':
+                    forgotPasswordFrom.get('confirm_password')!.invalid &&
+                    forgotPasswordFrom.get('confirm_password')!.touched
+                }"
               />
-            </div>
-          </div>
-          <div class="form-group col-lg-12">
-            <label>Confirm New Password </label>
-            <div class="input-group">
-              <input
-                type="password"
-                class="form-control quiz-input"
-                value="90mdownidon393"
-              />
+              <div class="icon-container">
+                <svg
+                  class="eye-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  (click)="toggleConfirmPassword()"
+                >
+                  <!-- Conditionally render bi-eye or bi-eye-slash path -->
+                  <ng-container *ngIf="hideConfirmPassword">
+                    <path
+                      d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"
+                    />
+                    <path
+                      d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"
+                    />
+                    <path
+                      d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"
+                    />
+                  </ng-container>
+                  <ng-container *ngIf="!hideConfirmPassword">
+                    <path
+                      d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"
+                    />
+                    <path
+                      d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"
+                    />
+                  </ng-container>
+                </svg>
+              </div>
             </div>
           </div>
 
           <div>
-            <button class="submit">Save</button>
+            <button
+              class="quiz-button"
+              type="button"
+              (click)="forgotPassword()"
+              [disabled]="forgotPasswordFrom.invalid"
+            >
+              Send Me Reset Code
+            </button>
           </div>
         </form>
+        <div
+          class="row justify-content-center mt-3 mb-4"
+          *ngIf="state == 'token'"
+        >
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ng-otp-input
+              (onInputChange)="onOtpChange($event)"
+              [config]="{ length: 6 }"
+            ></ng-otp-input>
+          </div>
+        </div>
+        <div class="card-footer" *ngIf="state == 'success'">
+          <div class="text-center">
+            <img
+              src="../../../../assets/icons/win.svg"
+              alt=""
+              style="margin-top: -30px; margin-bottom: 30px"
+            />
+          </div>
+          <div class="d-flex justify-content-center links">
+            Password reset was successful,
+           
+          </div>
+        </div>
+        <div class="card-footer" *ngIf="state == 'token'">
+          <div class="text-center links">
+            Please enter OTP sent to your email
+            {{ forgotPasswordFrom.get("email")?.value }}
+          </div>
+        </div>
+        <div
+          class="row justify-content-center mt-3 mb-4"
+          *ngIf="state == 'token'"
+        >
+          <button
+            type="submit"
+            [disabled]="otp.length != 6"
+            class="quiz-button"
+            (click)="resetPassword()"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
 
@@ -223,6 +363,7 @@ Texas, Dallas</textarea
                     class="form-check-input"
                     type="checkbox"
                     id="flexSwitchCheckDefault"
+                    [disabled]="true"
                   />
                 </div>
               </div>

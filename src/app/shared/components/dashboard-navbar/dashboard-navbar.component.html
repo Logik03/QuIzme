@@ -49,15 +49,20 @@
         <div><p class="tab-name unset">Settings</p></div>
       </div>
 
+   
       <div class="col-lg-8 col-12 col-md d-flex justify-content-end">
-        <div class="user-box d-flex gap-1" *ngIf="user$ | async as user">
+        <div class="user-box d-flex gap-1" *ngIf="user$ | async as user" (click)="toggleDropdown()">
           <div><img src="../../../assets/imgs/avatars.svg" alt="" /></div>
           <div class="details">
             <p class="name">{{ user?.username }}</p>
             <p class="sub">{{ user?.email }}</p>
           </div>
         </div>
+        <div class="dropdown-menu" [class.show]="dropdownOpen">
+          <a class="dropdown-item" (click)="logOut()">Logout</a>
+        </div>
       </div>
+      
     </form>
   </div>
 </nav>

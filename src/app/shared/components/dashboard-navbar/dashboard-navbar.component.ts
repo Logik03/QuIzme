@@ -14,6 +14,7 @@ import { logout } from '../../../store/actions/auth.actions';
 })
 export class DashboardNavbarComponent implements OnInit {
   user$: Observable<IUserData | null>;
+  dropdownOpen = false;
   constructor(private router: Router, private store: Store<AppState>) {
     this.user$ = this.store.pipe(select(selectUser));
   }
@@ -24,7 +25,9 @@ export class DashboardNavbarComponent implements OnInit {
   checkIfInRoute(routePath: string): boolean {
     return this.router.url === routePath;
   }
-
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
   logOut() {
     this.store.dispatch(logout());
   }

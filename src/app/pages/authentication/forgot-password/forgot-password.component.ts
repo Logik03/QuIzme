@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { NotificationService } from '../../../core/services/notification.service';
-import { AppState } from '../../../store/app.states';
-import { Store } from '@ngrx/store';
 import { MustMatch } from '../../../core/helpers/form-control-helper';
 
 @Component({
@@ -24,7 +22,6 @@ export class ForgotPasswordComponent {
     private fb: FormBuilder,
     private auth: AuthenticationService,
     private notify: NotificationService,
-    private store: Store<AppState>
   ) {
     this.forgotPasswordFrom = this.fb.group(
       {
