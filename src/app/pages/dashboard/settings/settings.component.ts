@@ -242,12 +242,12 @@ export class SettingsComponent implements OnInit {
     );
 
     this.form = this.fb.group({
-      fullname: ['', Validators.required],
+      fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone_number: [''],
+      phoneNumber: [''],
       country: [''],
       state: [''],
-      zip_code: [''],
+      zipCode: [''],
       address: [''],
       gender: [''],
     });
@@ -264,12 +264,12 @@ export class SettingsComponent implements OnInit {
           email: user?.email,
         });
         this.form.patchValue({
-          fullname: user?.fullName,
+          fullName: user?.fullName,
           email: user?.email,
-          phone_number: user?.phone_number,
+          phoneNumber: user?.phoneNumber,
           country: user?.country,
           state: user?.state,
-          zip_code: user?.zip_code,
+          zipCode: user?.zipCode,
           address: user?.address,
           gender: user?.gender,
         });
