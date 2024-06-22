@@ -18,11 +18,13 @@ export class AuthEffects {
     this.actions$.pipe(
       // Filters by Action Creator 'login'
       ofType(AuthPageActions.login),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.authService.login(action.payload).pipe(
-          map(user => AuthPageActions.loginSuccess({ user })),
-          tap(() =>  this.router.navigate(['/dashboard'], { replaceUrl: true })),
-          catchError(error => of(AuthPageActions.loginFailure({ errorMessage: error.message })))
+          map((user) => AuthPageActions.loginSuccess({ user })),
+          tap(() => this.router.navigate(['/dashboard'], { replaceUrl: true })),
+          catchError((error) =>
+            of(AuthPageActions.loginFailure({ errorMessage: error.message }))
+          )
         )
       )
     )
@@ -32,36 +34,52 @@ export class AuthEffects {
     this.actions$.pipe(
       // Filters by Action Creator 'login'
       ofType(AuthPageActions.signup),
-      exhaustMap(action =>
+      exhaustMap((action) =>
         this.authService.signUp(action.payload).pipe(
-          map(user => AuthPageActions.signupSuccess({ user })),
-          tap(() => this.router.navigate(['/auth/email-verification'], { replaceUrl: true })),
-          catchError(error => of(AuthPageActions.signupFailure({ errorMessage: error.message })))
+          map((user) => AuthPageActions.signupSuccess({ user })),
+          tap(() =>
+            this.router.navigate(['/auth/email-verification'], {
+              replaceUrl: true,
+            })
+          ),
+          catchError((error) =>
+            of(AuthPageActions.signupFailure({ errorMessage: error.message }))
+          )
         )
       )
     )
   );
 
-  loginSuccess$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthPageActions.loginSuccess),
-      tap(action => {
-        const playerId = action.user.data.user_data.id; // assuming your user object has a playerId field
-        this.store.dispatch(loadPlayer({ playerId }));
-      })
-    ), { dispatch: false }
+  loginSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthPageActions.loginSuccess),
+        tap((action) => {
+          const playerId = action.user.data.user_data.id!; // assuming your user object has a playerId field
+          this.store.dispatch(loadPlayer({ playerId }));
+        })
+      ),
+    { dispatch: false }
   );
 
-  selectInterests$ = createEffect(() => 
+  selectInterests$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthPageActions.selectInterests),
-      exhaustMap(action => 
+      exhaustMap((action) =>
         this.authService.selectInterests(action.payload).pipe(
-          map(interests => AuthPageActions.selectInterestsSuccess({interests})),
+          map((interests) =>
+            AuthPageActions.selectInterestsSuccess({ interests })
+          ),
           tap(() => {
             this.router.navigate(['/dashboard']);
           }),
-          catchError(error => of(AuthPageActions.selectInterestsFailure({errorMessage:error.messagei})))
+          catchError((error) =>
+            of(
+              AuthPageActions.selectInterestsFailure({
+                errorMessage: error.messagei,
+              })
+            )
+          )
         )
       )
     )
@@ -105,7 +123,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthenticationService,
-    private router : Router,
+    private router: Router,
     private store: Store
   ) {}
 }

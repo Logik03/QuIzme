@@ -52,7 +52,6 @@
   .custom-container {
     padding-left: 10px !important;
     padding-right: 10px !important;
-
   }
 }
 
@@ -63,7 +62,8 @@
   .avatar {
     width: 128px;
     height: 128px;
-    background: url(../../../../assets/imgs/avatar-setting.svg);
+    background-position: center !important;
+    background-size: cover !important;
   }
 
   button {
@@ -183,7 +183,7 @@ form {
   height: 127px;
   padding: 24px;
   border-radius: 16px;
-  background: #ffffff;
+  background: #eae5e5;
   border: 0.4px solid #d3d0d6;
   box-shadow: 0px 2px 4px -2px #8a86860f;
   box-shadow: 0px 4px 8px -2px #8a86861a;
@@ -226,5 +226,17 @@ form {
     height: 58px !important;
     background-size: cover !important;
   }
+}
 
+.icon-container {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  z-index: 100 !important;
+}
+.eye-icon {
+  cursor: pointer;
 }

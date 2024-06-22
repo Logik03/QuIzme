@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GameService } from '../../../core/services/game.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { IUserData } from '../../../core/models/user';
+import { AppState } from '../../../store/app.states';
+import { Store, select } from '@ngrx/store';
+import { selectUser } from '../../../store/selectors/auth.selectors';
+import { NotificationService } from '../../../core/services/notification.service';
+import { MustMatch } from '../../../core/helpers/form-control-helper';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   countries = [
     'Afghanistan',
     'Albania',
@@ -203,8 +213,147 @@ export class SettingsComponent {
     'Zambia',
     'Zimbabwe',
   ];
-
   gender: 'male' | 'female' = 'male';
-
   tab: 'profile' | 'password' | 'payment' = 'profile';
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
+  hideLoginPassword: boolean = true;
+  forgotPasswordFrom: FormGroup;
+  state: 'token' | 'success' | 'set-password' = 'set-password';
+  otp: string = '';
+  form: FormGroup;
+  userData: IUserData = {};
+  constructor(
+    private _gs: GameService,
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private notify: NotificationService,
+    private auth: AuthenticationService
+  ) {
+    this.forgotPasswordFrom = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        confirm_password: ['', [Validators.required]],
+      },
+      {
+        validators: MustMatch('password', 'confirm_password'),
+      }
+    );
+
+    this.form = this.fb.group({
+      fullname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone_number: [''],
+      country: [''],
+      state: [''],
+      zip_code: [''],
+      address: [''],
+      gender: [''],
+    });
+    store.pipe(select(selectUser)).subscribe({
+      next: (user) => {
+        this.userData = user || {};
+        if (user) {
+          const clonedUser = { ...user };
+          clonedUser.avatar =
+            user['avatar'] || '../../../../assets/imgs/avatar-setting.svg';
+          this.userData = clonedUser;
+        }
+        this.forgotPasswordFrom.patchValue({
+          email: user?.email,
+        });
+        this.form.patchValue({
+          fullname: user?.fullname,
+          email: user?.email,
+          phone_number: user?.phone_number,
+          country: user?.country,
+          state: user?.state,
+          zip_code: user?.zip_code,
+          address: user?.address,
+          gender: user?.gender,
+        });
+
+        this.forgotPasswordFrom.patchValue({
+          email: user?.email,
+        });
+      },
+    });
+  }
+
+  onOtpChange(event: any) {
+    this.otp = event;
+  }
+  updateProfile() {
+    if (this.form.valid) {
+      const dirtyValues = this.getDirtyValues(this.form);
+      this._gs.updateProfile(dirtyValues).subscribe({
+        next: () => {
+          this.notify.success('Profile updated successfully');
+        },
+      });
+    }
+  }
+  forgotPassword() {
+    this.auth
+      .forgotPassword({
+        email: this.forgotPasswordFrom.get('email')?.value,
+      })
+      .subscribe((data) => {
+        this.state = 'token';
+      });
+  }
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+  toggleConfirmPassword() {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
+
+  getDirtyValues(form: FormGroup): { [key: string]: any } {
+    const dirtyValues: { [key: string]: any } = {};
+    Object.keys(form.controls).forEach((key) => {
+      const currentControl = form.get(key);
+      if (currentControl && currentControl.dirty) {
+        dirtyValues[key] = currentControl.value;
+      }
+    });
+    return dirtyValues;
+  }
+
+  chooseAvatar() {
+    document.getElementById('chooseAvatar')?.click();
+  }
+
+  selectAvatar(event: any) {
+    this._gs.uploadImage(event.target.files[0]).subscribe({
+      next: (res) => {
+        this._gs
+          .updateProfile({
+            avatar: res.data.image,
+          })
+          .subscribe({
+            next: () => {
+              this.notify.success('Avatar uploaded successfully');
+            },
+          });
+      },
+    });
+  }
+
+  resetPassword() {
+    this.auth
+      .resetPassword({
+        email: this.forgotPasswordFrom.get('email')?.value,
+        password: this.forgotPasswordFrom.get('password')?.value,
+        token: this.otp,
+      })
+      .subscribe({
+        next: () => {
+          this.notify.success('Password reset successfull');
+          this.state = 'success';
+        },
+      });
+  }
+  ngOnInit(): void {}
 }
