@@ -62,8 +62,7 @@ export class InterestComponentComponent implements OnInit {
   }
 
   selectedInterestsCount(): number {
-    return this.interests.filter(interest => interest.selected).length + 
-           this.customInterests.filter(interest => interest.selected).length;
+    return this.interests.filter(interest => interest.selected).length + this.customInterests.filter(interest => interest.selected).length;
   }
 
   updateInterestSelected() {

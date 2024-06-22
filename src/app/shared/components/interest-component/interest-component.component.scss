@@ -31,16 +31,19 @@ h2 {
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s, border-color 0.3s;
-  word-wrap: break-word;  // Ensure long text wraps within the container
 
   img {
-    width: 36px;  // Adjust size if necessary
-    height: 36px; // Adjust size if necessary
+    width: 36px;
+    height: 36px;
   }
 
   span {
     margin-top: 10px;
     text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &.selected {
@@ -49,53 +52,125 @@ h2 {
     border-color: #6200ea;
   }
 }
-
+.custom-interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
 .custom-interest-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between; // Ensure the "x" button is aligned to the right
+  justify-content: center;
+  border: 1px solid #E7E4EB;
+  border-radius: 10px;
   padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
 
-  div {
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    margin-top: 10px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.selected {
+    background-color: #6200ea;
+    color: white;
+    border-color: #6200ea;
+  }
+  .remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff1744;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    font-size: 16px;
     cursor: pointer;
-
-    img {
-      width: 36px;  // Adjust size if necessary
-      height: 36px; // Adjust size if necessary
-    }
-
-    .custom-interest-name {
-      text-align: center;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 100%;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #d50000;
     }
   }
 }
 
-.remove-button {
-  background: #ff1744;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+// .custom-interest-item {
+//   position: relative;  // Ensure the "x" button can be absolutely positioned
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between; /* Adjust to ensure proper spacing */
+//   border: 1px solid #E7E4EB;
+//   border-radius: 10px;
+//   padding: 20px;
+//   cursor: pointer;
+//   transition: background-color 0.3s, border-color 0.3s;
+//   height: 100px; /* Adjust height as necessary */
+  
+//   div {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
+//     flex-grow: 1; /* Ensure the div takes up available space */
 
-  &:hover {
-    background-color: #d50000;
-  }
-}
+//     img {
+//       width: 36px;
+//       height: 36px;
+//     }
+
+//     .custom-interest-name {
+//       margin-top: auto; /* Push the text to the bottom */
+//       text-align: center;
+//       max-width: 100%;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       white-space: nowrap;
+//     }
+//   }
+// }
+
+// .remove-button {
+//   position: absolute;
+//   top: 5px;
+//   right: 5px;
+//   background: #ff1744;
+//   color: white;
+//   border: none;
+//   border-radius: 50%;
+//   width: 24px;
+//   height: 24px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 16px;
+//   cursor: pointer;
+//   transition: background-color 0.3s;
+
+//   &:hover {
+//     background-color: #d50000;
+//   }
+// }
 
 .add-interest {
   display: flex;
@@ -110,8 +185,8 @@ h2 {
   transition: background-color 0.3s, border-color 0.3s;
 
   img {
-    width: 36px;  // Adjust size if necessary
-    height: 36px; // Adjust size if necessary
+    width: 36px;
+    height: 36px;
   }
 
   span {
@@ -182,8 +257,8 @@ h2 {
   width: 35% !important;
 
   &:disabled {
-    background-color: #c0b6ed; /* Change background color to grey */
-    cursor: not-allowed; /* Change cursor to not-allowed */
+    background-color: #c0b6ed;
+    cursor: not-allowed;
   }
 
   &:not(:disabled):hover {
