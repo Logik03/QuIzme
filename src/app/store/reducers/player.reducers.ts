@@ -7,6 +7,7 @@ export interface PlayerState {
   freeGameUsed: boolean;
   chancesLeft: number;
   lastReset: Date;
+  no_of_plays: number;
   isLoading: boolean;
 }
 
@@ -14,6 +15,7 @@ export const initialState: PlayerState = {
   playerId: '',
   freeGameUsed: false,
   chancesLeft: 4,
+  no_of_plays: 0,
   lastReset: new Date(),
   isLoading: false,
 };
@@ -46,12 +48,22 @@ export const playerReducer = createReducer(
   })),
   on(PlayerActions.useFreeGame, state => ({ 
     ...state, 
-    freeGameUsed: true 
+    freeGameUsed: true, 
+    no_of_plays : state.no_of_plays + 1
   })),
   on(PlayerActions.useChance, state => ({ 
     ...state, 
     chancesLeft: state.chancesLeft - 1 
   })),
-  on(PlayerActions.updatePlayerState, (state, { updates }) => ({ ...state, ...updates }))
+  on(PlayerActions.updatePlayerId, (state, { playerId }) => ({
+    ...state,
+    playerId  
+  })),
+  on(PlayerActions.updatePlayerState, (state, { updates }) => ({ ...state, ...updates })),
+  on(PlayerActions.resetPlayerState, () => initialState),
+  on(PlayerActions.activateReward , (state) => ({
+    ...state,
+    freeGameUsed: false,
+  })),
 );
 

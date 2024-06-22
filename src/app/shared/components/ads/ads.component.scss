@@ -14,11 +14,95 @@ video {
 
 .skip {
   position: absolute;
-  top: 17px;
+  top: 7px;
   right: 23px;
 
   .badge {
     background-color: rgba(0, 0, 0, 0.685);
     cursor: pointer;
   }
+}
+// .reward {
+//   position: absolute;
+//   top: 17px;
+//   //border: 2px solid #6949FF;
+//   padding: 5px;
+//   border-radius: 25px;
+
+//   .rew {
+//     color: #6949FF; /* Text color */
+//     cursor: pointer;
+//   }
+// }
+.reward {
+  position: absolute;
+  top: 7px;
+  left: 17px; /* Adjust left position as needed */
+}
+
+.circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //width: 60px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+}
+
+.circle svg {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+}
+
+.circle .circle-background {
+  fill: none;
+  stroke: #4caf50; /* Progress color */
+  stroke-width: 5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s linear; 
+}
+
+.circle .circle-progress {
+  fill: none;
+  stroke: #4caf50; /* Progress color */
+  stroke-width: 5;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.circle .countdown-text {
+  font-size: 14px; /* Adjust font size as needed */
+  fill: #000; /* Color of the countdown text */
+}
+
+.circle .rew {
+  font-size: 12px; /* Adjust font size as needed */
+  margin-right: 5px; /* Adjust margin as needed */
+}
+
+.countdown-over .circle-progress {
+  stroke: #ccc; /* Change color when countdown is over */
+}
+
+.countdown-over .countdown-text {
+  display: none; /* Hide countdown text when countdown is over */
+}
+
+.reward-button {
+  background-color: transparent;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.reward-button:hover {
+  background-color: #4caf50;
+  color: #fff;
 }

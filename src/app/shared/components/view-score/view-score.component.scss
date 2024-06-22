@@ -1,0 +1,47 @@
+.modal {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .close {
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+  
+  .modal-body {
+    text-align: center;
+    width: 100%;
+    height: 90vh;
+  }
+  
+  .score-display h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .score-display p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .footer-disclaimer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  ::ng-deep .modal-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }

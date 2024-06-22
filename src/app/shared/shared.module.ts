@@ -9,6 +9,10 @@ import { DashboardNavbarComponent } from './components/dashboard-navbar/dashboar
 import { RouterModule } from '@angular/router';
 import { AdsComponent } from './components/ads/ads.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TopThreeComponent } from './components/top-three/top-three.component';
+import { TopTenComponent } from './components/top-ten/top-ten.component';
+import { FormsModule } from '@angular/forms';
+import { ViewScoreComponent } from './components/view-score/view-score.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -19,9 +23,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     InterestComponentComponent,
     DashboardNavbarComponent,
     AdsComponent,
+    TopThreeComponent,
+    TopTenComponent,
+    ViewScoreComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -36,6 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     InterestComponentComponent,
     DashboardNavbarComponent,
     AdsComponent,
+    TopThreeComponent,
+    TopTenComponent,
     NgbModule,
   ],
 })
