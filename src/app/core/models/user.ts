@@ -26,16 +26,20 @@ export interface IUserResponse {
 export interface IUserData {
   email?: string;
   username?: string;
+<<<<<<< HEAD
+  fullName?: string; 
+=======
   fullName?: string;
+>>>>>>> 4f843d04894e52155fb703edb5947f635cc5c300
   interests?: string[];
   id?: string;
   country?: string;
-  zip_code?: string;
+  zipCode?: string;
   address?: string;
   state?: string;
   gender?: string;
-  phone_number?: string;
-  avatar?: string
+  phoneNumber?: string;
+  avatar?: string;
 }
 
 export interface ISigninModel {
@@ -76,26 +80,26 @@ export interface ISignupModel {
     };  
 } */
 export interface IQuestion {
-    awnser: string;
-    _id: string;
-    content: string;
-    for_day: Date;
-    isconstant:boolean;
-    answer: string;
-    options: [];
-    __v: string;
-    id: string;
+  awnser: string;
+  _id: string;
+  content: string;
+  for_day: Date;
+  isconstant: boolean;
+  answer: string;
+  options: [];
+  __v: string;
+  id: string;
 }
 
 export interface IGameData {
-    adverts: any[]; // You can replace 'any' with the actual type of adverts
-    games_played: number; // Assuming UserData is another interface for user data
-    player_id: string;
-    questions: IQuestion[];
+  adverts: any[]; // You can replace 'any' with the actual type of adverts
+  games_played: number; // Assuming UserData is another interface for user data
+  player_id: string;
+  questions: IQuestion[];
 }
 
 export interface IQuestions {
-    data:  IGameData;
+  data: IGameData;
 }
 export interface IAnswer {
   questionId: string;
