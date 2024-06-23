@@ -239,6 +239,18 @@ export class OverviewComponent implements OnInit {
     document.getElementById('hours')!.innerText = hours.toString();
     document.getElementById('minutes')!.innerText = minutes.toString();
     document.getElementById('seconds')!.innerText = seconds.toString();
+
+    this.updateElement('hours', hours);
+    this.updateElement('minutes', minutes);
+    this.updateElement('seconds', seconds);
+  }
+  updateElement(id: string, value: number) {
+    const element = document.getElementById(id)!;
+    element.classList.add('updating');
+    setTimeout(() => {
+      element.innerText = value.toString();
+      element.classList.remove('updating');
+    }, 300); // Match this duration with your CSS transition duration
   }
 
   /* onAdDismissed(event: any) {
