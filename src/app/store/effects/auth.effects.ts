@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, mergeMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  exhaustMap,
+  map,
+  mergeMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import * as AuthPageActions from '../actions/auth.actions';
 import * as PlayerActions from '../actions/player.actions';
@@ -11,6 +19,8 @@ import { Store } from '@ngrx/store';
 import { loadPlayer } from '../actions/player.actions';
 import { selectPlayerState } from '../selectors/player.selectors';
 import { selectGameState } from '../selectors/game.selectors';
+import { GameService } from '../../core/services/game.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Injectable()
 export class AuthEffects {
@@ -24,6 +34,20 @@ export class AuthEffects {
           tap(() => this.router.navigate(['/dashboard'], { replaceUrl: true })),
           catchError((error) =>
             of(AuthPageActions.loginFailure({ errorMessage: error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  updateProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthPageActions.updateUserData),
+      exhaustMap((action) =>
+        this.gameService.updateProfile(action.payload).pipe(
+          map(
+            (user) => AuthPageActions.updateProfile({ user: action.payload }),
+            tap(() => this.notify.success('Profile updated successfully'))
           )
         )
       )
@@ -96,7 +120,7 @@ export class AuthEffects {
         }),
         mergeMap(() => [
           PlayerActions.resetPlayerState(),
-          GameActions.resetGameState()
+          GameActions.resetGameState(),
         ])
       ),
     { dispatch: false }
@@ -119,11 +143,12 @@ export class AuthEffects {
     )
   );
 
-
   constructor(
     private actions$: Actions,
     private authService: AuthenticationService,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private gameService: GameService,
+    private notify: NotificationService
   ) {}
 }

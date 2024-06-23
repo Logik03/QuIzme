@@ -3,6 +3,7 @@ import { ISigninModel, ISignupModel, IUser, IUserData, IUserResponse } from '../
 
 
 export const login = createAction('[Auth/API] Login',props<{ payload : ISigninModel}>());
+
 export const signup = createAction('[Auth/API] Sign Up',props<{ payload : ISignupModel }>());
 
 // Action for login success
@@ -42,3 +43,8 @@ export const resetForgottenPassword = createAction('[Auth/API] Reset Forgotten P
 export const resetForgottenPasswordSuccess = createAction('[Auth/API] Reset Forgotten Password Successful', props<{ res: any }>());
 
 export const resetForgottenPasswordFailure = createAction('[Auth/API] Reset Forgotten Password Failed', props<{ err: any }>());
+
+
+export const updateProfile = createAction('[User/API] Update User',props<{ user: IUserData }>());
+
+export const updateUserData = createAction('[User/API] Update',props<{ payload : IUserData}>());

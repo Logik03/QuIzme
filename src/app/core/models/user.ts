@@ -26,11 +26,7 @@ export interface IUserResponse {
 export interface IUserData {
   email?: string;
   username?: string;
-<<<<<<< HEAD
   fullName?: string; 
-=======
-  fullName?: string;
->>>>>>> 4f843d04894e52155fb703edb5947f635cc5c300
   interests?: string[];
   id?: string;
   country?: string;
