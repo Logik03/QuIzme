@@ -44,7 +44,10 @@ export const authReducer = createReducer(
     errorMessage: null,
     selectedInterests: user.data.user_data.interests!,
     email: user.data.user_data.email!,
-    
+  })),
+  on(AuthPageActions.updateProfile, (state, { user }) => ({
+    ...state,
+    user,
   })),
   on(AuthPageActions.signupSuccess, (state, { user }) => ({
     ...state,

@@ -9,6 +9,7 @@ import { selectUser } from '../../../store/selectors/auth.selectors';
 import { NotificationService } from '../../../core/services/notification.service';
 import { MustMatch } from '../../../core/helpers/form-control-helper';
 import { AuthenticationService } from '../../../core/services/authentication.service';
+import { updateUserData } from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-settings',
@@ -273,7 +274,7 @@ export class SettingsComponent implements OnInit {
           address: user?.address,
           gender: user?.gender,
         });
-
+        this.gender = user?.gender as any;
         this.forgotPasswordFrom.patchValue({
           email: user?.email,
         });
@@ -286,12 +287,7 @@ export class SettingsComponent implements OnInit {
   }
   updateProfile() {
     if (this.form.valid) {
-      const dirtyValues = this.getDirtyValues(this.form);
-      this._gs.updateProfile(dirtyValues).subscribe({
-        next: () => {
-          this.notify.success('Profile updated successfully');
-        },
-      });
+      this.store.dispatch(updateUserData({ payload: this.form.value as any }));
     }
   }
   forgotPassword() {
