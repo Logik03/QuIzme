@@ -1,0 +1,72 @@
+<ng-template #content let-modal>
+  <div class="modal-body">
+    <video
+      src="../../../../assets/ad.mp4"
+      [playsInline]="true"
+      autoplay
+    ></video>
+
+    <div class="skip">
+      <!-- <span *ngIf="adType !== 'interstitial' && playerChances === 4" class="badge" (click)="canSkip && skipAd(modal)">
+        {{ countdown > 15 ? countdown : "Skip ad" }}
+      </span> -->
+      <div class="circle" [ngClass]="{ 'countdown-over': countdown === 0 }" *ngIf="adType === 'interstitial' && !responseReceived">
+        <span class="rew"  (click)="close('calculate player score')">
+          {{ countdown > 15 ? 'Calculating Score in :' : '' }}
+          <button *ngIf="countdown <= 15" class="reward-button" (click)="close('calculate player score')">
+            View Score
+          </button>
+        </span>
+        <svg height="60" width="60" *ngIf="countdown > 15">
+          <circle
+            class="circle-background"
+            cx="30"
+            cy="30"
+            r="25"
+          ></circle>
+          <circle
+            class="circle-progress"
+            cx="30"
+            cy="30"
+            r="25"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="dashOffset"
+          ></circle>
+          <text x="30" y="35" text-anchor="middle" class="countdown-text" *ngIf="countdown > 15">
+            {{ countdown }}
+          </text>
+        </svg>
+      </div>
+     
+    </div>
+    <div *ngIf="playerChances > 0 && adType !== 'interstitial'" class="reward">
+      <div class="circle" [ngClass]="{ 'countdown-over': countdown === 0 }">
+        <span class="rew">
+          {{ countdown > 0 ? 'Rewards in: ' : '' }}
+          <button *ngIf="countdown === 0" class="reward-button" (click)="claimReward()">
+            Claim Reward
+          </button> 
+        </span>
+        <svg height="60" width="60" *ngIf="countdown > 0">
+          <circle
+            class="circle-background"
+            cx="30"
+            cy="30"
+            r="25"
+          ></circle>
+          <circle
+            class="circle-progress"
+            cx="30"
+            cy="30"
+            r="25"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="dashOffset"
+          ></circle>
+          <text x="30" y="35" text-anchor="middle" class="countdown-text" *ngIf="countdown > 0">
+            {{ countdown }}
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</ng-template>

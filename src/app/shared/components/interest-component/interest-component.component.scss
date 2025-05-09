@@ -1,0 +1,267 @@
+.interest-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.interest-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E4EB;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    margin-top: 10px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.selected {
+    background-color: #6200ea;
+    color: white;
+    border-color: #6200ea;
+  }
+}
+.custom-interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+.custom-interest-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E4EB;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    margin-top: 10px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.selected {
+    background-color: #6200ea;
+    color: white;
+    border-color: #6200ea;
+  }
+  .remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff1744;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #d50000;
+    }
+  }
+}
+
+// .custom-interest-item {
+//   position: relative;  // Ensure the "x" button can be absolutely positioned
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between; /* Adjust to ensure proper spacing */
+//   border: 1px solid #E7E4EB;
+//   border-radius: 10px;
+//   padding: 20px;
+//   cursor: pointer;
+//   transition: background-color 0.3s, border-color 0.3s;
+//   height: 100px; /* Adjust height as necessary */
+  
+//   div {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
+//     flex-grow: 1; /* Ensure the div takes up available space */
+
+//     img {
+//       width: 36px;
+//       height: 36px;
+//     }
+
+//     .custom-interest-name {
+//       margin-top: auto; /* Push the text to the bottom */
+//       text-align: center;
+//       max-width: 100%;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       white-space: nowrap;
+//     }
+//   }
+// }
+
+// .remove-button {
+//   position: absolute;
+//   top: 5px;
+//   right: 5px;
+//   background: #ff1744;
+//   color: white;
+//   border: none;
+//   border-radius: 50%;
+//   width: 24px;
+//   height: 24px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 16px;
+//   cursor: pointer;
+//   transition: background-color 0.3s;
+
+//   &:hover {
+//     background-color: #d50000;
+//   }
+// }
+
+.add-interest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E4EB;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  span {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: #f0e7ff;
+    border-color: #6200ea;
+  }
+}
+
+.custom-interest {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #E7E4EB;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #6200ea;
+      outline: none;
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #6200ea;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 0px 0px #4b00b3;
+
+    &:hover {
+      background-color: #3700b3;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #4b00b3;
+      transform: scale(0.95);
+    }
+  }
+}
+
+.continue-button {
+  border-radius: 16px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #6949ff;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0px 6px 0px 0px #221659;
+  display: inline-block;
+  width: 35% !important;
+
+  &:disabled {
+    background-color: #c0b6ed;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    background-color: #3700b3;
+  }
+}

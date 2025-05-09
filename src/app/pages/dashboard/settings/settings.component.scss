@@ -1,0 +1,242 @@
+.tabs {
+  margin-top: 100px;
+  border-bottom: 0.6px solid #d3d0d6;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  .tab p {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    color: #706d73;
+    width: 91px;
+  }
+  .active {
+    p {
+      color: #6949ff !important;
+    }
+    border-bottom: 3px solid #6949ff;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .custom-container {
+    padding: 0 240px;
+  }
+}
+@media screen and (max-width: 1399px) {
+  .custom-container {
+    padding: 0 160px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .custom-container {
+    padding: 0 140px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .custom-container {
+    padding: 0 100px;
+  }
+}
+
+@media screen and (max-width: 1095px) {
+  .custom-container {
+    padding: 0 80px;
+  }
+}
+@media screen and (max-width: 995px) {
+  .custom-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+.setting {
+  padding: 0 150px;
+  margin-top: 30px;
+
+  .avatar {
+    width: 128px;
+    height: 128px;
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
+  button {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+    height: 36px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+  }
+  .change {
+    color: #fff;
+    background: #6949ff;
+    width: 133px;
+  }
+  .delete {
+    color: #cc0000;
+    background: #fceded;
+    width: 105px;
+  }
+}
+
+form {
+  label {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    color: #312f33;
+    margin-bottom: 10px;
+  }
+  .quiz-input {
+    width: 100%;
+    height: 56px;
+    padding: 10px 16px 10px 16px;
+    border-radius: 16px;
+    background: #f8f8f8;
+    border: none;
+    outline: none;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #1d1c1f;
+  }
+  .message {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #88868a;
+  }
+
+  .custom-radio {
+    height: 48px;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid #6949ff;
+    background: #f2effc;
+    align-items: center;
+    cursor: pointer;
+    img {
+      margin-top: -2px;
+    }
+
+    p {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      text-align: left;
+      color: #1d1c1f;
+      margin-top: 18px;
+    }
+  }
+
+  .unchecked {
+    border: 0.5px solid #706d73;
+    background-color: transparent;
+    p {
+      font-weight: 400;
+    }
+  }
+
+  .submit {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    height: 56px;
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 0px 0px #221659;
+    background: #6949ff;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+}
+
+.expand_more {
+  right: 26px;
+  position: absolute;
+  top: 48px;
+}
+
+.payment-bx {
+  width: 100%;
+  height: 127px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #eae5e5;
+  border: 0.4px solid #d3d0d6;
+  box-shadow: 0px 2px 4px -2px #8a86860f;
+  box-shadow: 0px 4px 8px -2px #8a86861a;
+
+  .title {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #1d1c1f;
+    width: 70%;
+  }
+  .sub {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #706d73;
+  }
+  .form-switch {
+    position: absolute;
+    bottom: 0;
+    right: 21px;
+    bottom: -5px;
+    input {
+      width: 42px;
+      height: 23px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .setting {
+    padding: 0 !important;
+  }
+  .avatar {
+    width: 58px !important;
+    height: 58px !important;
+    background-size: cover !important;
+  }
+}
+
+.icon-container {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  z-index: 100 !important;
+}
+.eye-icon {
+  cursor: pointer;
+}
