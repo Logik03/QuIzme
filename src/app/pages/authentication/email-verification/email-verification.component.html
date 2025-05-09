@@ -1,1 +1,10 @@
-<p>email-verification works!</p>
+<div class="container">
+    <div class="image-container">
+        <img style="width: 50%; border-radius: 50%;" src="/assets/images/logo.svg">
+    </div>
+    <h2 style="font-weight: bolder; text-align: center;">Check your email</h2>
+    <p style="text-align: center;">We’ve sent an email to <span style="color: #6949FF;  font-weight: bolder;">{{ email$ | async }}</span>.<br> Confirm your address is correct by clicking the link in the email.</p>
+
+    <p style="font-weight: 100; font-size: 14px; text-align: center; margin-top: 2rem;">Didnt recieve an email check your spam folder</p>
+    <!-- Your verification form or content can go here -->
+</div>

@@ -1,0 +1,68 @@
+<nav class="navbar justify-content-between sticky-top mt-1">
+  <div class="container">
+    <div class="logo-container">
+      <img style="border-radius: 50%;" src="../../../assets/images/logo.svg" alt="Logo" />
+    </div>
+
+    <form class="d-flex gap-2 tab-con">
+      <div
+        routerLink="/dashboard"
+        class="d-flex gap-2 mt-2 col-lg-2 tab cursor"
+        [ngClass]="{ active: checkIfInRoute('/dashboard') }"
+      >
+        <div>
+          <img
+            src="../../../assets/icons/grid_view_.svg"
+            *ngIf="!checkIfInRoute('/dashboard')"
+            alt=""
+          />
+        </div>
+        <div>
+          <img
+            src="../../../assets/icons/grid_view.svg"
+            *ngIf="checkIfInRoute('/dashboard')"
+            alt=""
+          />
+        </div>
+
+        <div><p class="tab-name">Dashboard</p></div>
+      </div>
+
+      <div
+        class="d-flex gap-2 mt-2 col-lg-2 tab justify-content-center cursor"
+        routerLink="/dashboard/settings"
+        [ngClass]="{ active: checkIfInRoute('/dashboard/settings') }"
+      >
+        <div>
+          <img
+            src="../../../assets/icons/settings.svg"
+            alt=""
+            *ngIf="!checkIfInRoute('/dashboard/settings')"
+          />
+          <img
+            src="../../../assets/icons/settings_.svg"
+            alt=""
+            *ngIf="checkIfInRoute('/dashboard/settings')"
+          />
+        </div>
+
+        <div><p class="tab-name unset">Settings</p></div>
+      </div>
+
+   
+      <div class="col-lg-8 col-12 col-md d-flex justify-content-end">
+        <div class="user-box d-flex gap-1" *ngIf="user$ | async as user" (click)="toggleDropdown()">
+          <div><img src="../../../assets/imgs/avatars.svg" alt="" /></div>
+          <div class="details">
+            <p class="name">{{ user?.username }}</p>
+            <p class="sub">{{ user?.email }}</p>
+          </div>
+        </div>
+        <div class="dropdown-menu" [class.show]="dropdownOpen">
+          <a class="dropdown-item" (click)="logOut()">Logout</a>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</nav>

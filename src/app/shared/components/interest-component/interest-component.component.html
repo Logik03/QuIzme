@@ -1,0 +1,60 @@
+<!-- <div class="interest-selection-container">
+  <h2>Select your interests</h2>
+  <div class="interests-grid">
+    <div
+      *ngFor="let interest of interests"
+      (click)="toggleSelection(interest)"
+      [class.selected]="interest.selected"
+      class="interest-item"
+    >
+      <img src="/assets/icons/checked_bag.svg">
+      <span>{{ interest.name }}</span>
+    </div>
+    <div class="interest-item add-interest" (click)="toggleAddCustom()">
+      <img src="/assets/icons/checked_bag.svg">
+      <span>Add Interest</span>
+    </div>
+  </div>
+  <div *ngIf="showAddCustom" class="custom-interest">
+    <input [(ngModel)]="newInterest" placeholder="Add a custom interest" />
+    <button (click)="addCustomInterest()">Add</button>
+  </div>
+  
+  <button (click)="continue()" class="continue-button" [disabled]="!interestSelected">Continue</button>
+  
+</div> -->
+<div class="interest-selection-container">
+  <h2>Select your interests</h2>
+  <div class="interests-grid">
+    <!-- Predefined Interests -->
+    <div *ngFor="let interest of interests" class="interest-item" (click)="toggleSelection(interest)" [class.selected]="interest.selected">
+      <img src="/assets/icons/checked_bag.svg">
+      <span>{{ interest.name }}</span>
+    </div>
+
+    <!-- Custom Interests -->
+    <div *ngFor="let customInterest of customInterests" class="custom-interest-grid" >
+      <div (click)="toggleSelection(customInterest)" class="custom-interest-item" [class.selected]="customInterest.selected">
+        <button class="remove-button" (click)="removeCustomInterest(customInterest); $event.stopPropagation();">x</button>
+        <img src="/assets/icons/checked_bag.svg">
+        <span class="custom-interest-name">{{ customInterest.name }}</span>
+      </div>
+      
+    </div>
+
+    <!-- Add Custom Interest -->
+    <div class="interest-item add-interest" (click)="toggleAddCustom()">
+      <img src="/assets/icons/checked_bag.svg">
+      <span>Add Interest</span>
+    </div>
+  </div>
+
+  <!-- Add Custom Interest Input -->
+  <div *ngIf="showAddCustom" class="custom-interest">
+    <input [(ngModel)]="newInterest" placeholder="Add a custom interest" />
+    <button (click)="addCustomInterest()">Add</button>
+  </div>
+
+  <!-- Continue Button -->
+  <button (click)="continue()" class="continue-button" [disabled]="!interestSelected">Continue</button>
+</div>
