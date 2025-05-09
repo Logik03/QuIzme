@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { StorageService } from './storage.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { ISigninModel, ISignupModel } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -42,19 +43,17 @@ export class AuthenticationService {
   }
   
   
-  public login(payload: any): Observable<any> {
+  public login(payload: ISigninModel): Observable<any> {
     return this.http
-      .post(`${this.baseUrl}/auth/signin`, payload)
-      .pipe(
-        tap((res: any) => {
-           this.storage.setToken(res.data.access_token);
-          this.storage.setItem('User' , res.data.user);
-        })
-      );
+      .post(`${this.baseUrl}/auth/signin`, payload);
   }
 
-  public signUp(payload: any) {
-    return this.http.post(`${this.baseUrl}/auth/register`, payload);
+  public signUp(payload: ISignupModel): Observable<any>  {
+    return this.http.post(`${this.baseUrl}/auth/signup`, payload);
+  }
+
+  public selectInterests (payload: any) {
+    return this.http.post(`${this.baseUrl}/user/add-interest`, payload);
   }
 
   public emailConfirmation(token:string) {

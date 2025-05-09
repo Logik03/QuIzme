@@ -2,12 +2,14 @@ import { Component, Inject, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-//import { NotificationService } from '../../../core/services/notification.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustMatch } from '../../../core/helpers/form-control-helper';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../store/selectors/auth.selectors';
+import { login, signup } from '../../../store/actions/auth.actions';
+import { AppState } from '../../../store/app.states';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,9 @@ import { selectIsAuthenticated, selectUser, selectErrorMessage } from '../../../
 export class LoginComponent implements OnInit {
 
 
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
+  hideLoginPassword: boolean = true;
   signInForm: FormGroup;
   signUpForm: FormGroup;
   public currentTab : string = 'register';
@@ -26,8 +31,9 @@ export class LoginComponent implements OnInit {
     private router : Router,
     private fb : FormBuilder,
     private auth : AuthenticationService,
-    //private notify : NotificationService,
-    private route: ActivatedRoute
+    private notify : NotificationService,
+    private route: ActivatedRoute,
+    private store: Store<AppState>
   ) {
     this.route.queryParams.subscribe(params => {
     if (params['tab'] === 'register') {
@@ -60,12 +66,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    this.auth.login(this.signInForm.value).subscribe((res: any)=> {
-      console.log(res.data, 'i am response from loging in!!')
-      if(res.data.status) {
-        this.router.navigateByUrl('/app/dashboard/convert', { replaceUrl: true });
-      }
-    })
+    
+    if (this.signInForm.invalid) {
+      return;
+    } 
+     const { email, password } = this.signInForm.value;
+    this.store.dispatch(login({ payload: { email, password } }));
   }
 
   backToHome() {
@@ -79,17 +85,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp() {
-    this.auth.signUp(this.signUpForm.value).subscribe((res:any) => {
-      console.log(res, 'i am signup response')
-      if(res.data.status == true) {
-        this.signUpForm.reset();
-        this.switchToTab('login');
-        //this.notify.success(res.data.Msg);
-      }else {
-        //this.notify.error('something went wrong');
-      }
-    })
+
+    if (this.signUpForm.invalid) {
+      return;
+    } 
+     const { email, password, username, fullname } = this.signUpForm.value;
+     this.store.dispatch(signup({ payload: { email, password, fullname, username } }));
+  }
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+  toggleConfirmPassword() {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
+  toggleLoginPassword() {
+    this.hideLoginPassword = !this.hideLoginPassword
   }
 
 }
+
 
